@@ -8,5 +8,5 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:pageTemplate pageTitle="About POS">
-    <h1>About page</h1>
+    <h1 style="text-align: center">About page</h1>
 </t:pageTemplate>
