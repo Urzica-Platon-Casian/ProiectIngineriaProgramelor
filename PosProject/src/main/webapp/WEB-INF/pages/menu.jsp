@@ -19,6 +19,10 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/payment.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/receipt.jsp">Receipt</a>
+                </li>
             </ul>
             <ul class="navbar-nav d-flex">
                 <li class="navbar-item">
