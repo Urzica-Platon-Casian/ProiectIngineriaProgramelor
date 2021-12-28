@@ -36,6 +36,8 @@ public class Product implements Serializable {
         return id;
     }
 
+    // com
+    
     
     public void setId(Integer id) {
         this.id = id;
