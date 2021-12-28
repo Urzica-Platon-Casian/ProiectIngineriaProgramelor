@@ -31,7 +31,7 @@ public class User implements Serializable {
     private String password;
 
     public void setValidation(Boolean validation) {
-        this.validation = validation;
+        this.validation = false;
     }
 
     public void setFirstname(String firstname) {
