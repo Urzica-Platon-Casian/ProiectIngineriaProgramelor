@@ -6,28 +6,61 @@
 package com.pos.posproject.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Monica
  */
 @Entity
+@Table(name = "PRODUCTCATALOGS")
+@XmlRootElement
+
 public class ProductCatalog implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
+    private String productCatalogName;
 
-    public Long getId() {
+    @JsonbTransient
+    @OneToMany(mappedBy = "productCatalog")
+    private Collection<Product> products;
+
+    public String getProductCatalogName() {
+        return productCatalogName;
+    }
+
+    public void setProductCatalogName(String productCatalogName) {
+        this.productCatalogName = productCatalogName;
+    }
+    
+  @XmlTransient
+    public Collection<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
+    }
+    
+    
+      
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

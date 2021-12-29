@@ -36,7 +36,7 @@ public class Product implements Serializable {
     private String category;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="PRODUCTCATALOG_KEY")
+    @JoinColumn(name="PRODUCTCATALOGS_KEY")
     private ProductCatalog productCatalog;
 
     public ProductCatalog getProductCatalog() {
