@@ -23,30 +23,32 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Monica
  */
-
-
 @WebServlet(name = "Products", urlPatterns = {"/Products"})
 public class Products extends HttpServlet {
 
     @Inject
     private ProductBean productBean;
-    
+
     @Inject
-    private ProductCatalogBean productCatalogBean; 
+    private ProductCatalogBean productCatalogBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.setAttribute("activePage", "Products");
-        request.getRequestDispatcher("/WEB-INF/pages/addPhoto.jsp").forward(request, response);
-        Integer productCatalogId = Integer.parseInt(request.getParameter("id"));
-        ProductCatalogDetails productCatalog = productCatalogBean.findById(productCatalogId);
-        List<ProductDetails> products = productBean.getAllProductsFromCatalog(productCatalog.getId());
-        request.setAttribute("products", products);
-                request.getRequestDispatcher("/WEB-INF/pages/products.jsp").forward(request, response);
-    }
 
+//        request.setAttribute("activePage", "Products");
+//        request.getRequestDispatcher("/WEB-INF/pages/addPhoto.jsp").forward(request, response);
+//        Integer productCatalogId = Integer.parseInt(request.getParameter("id"));
+//        ProductCatalogDetails productCatalog = productCatalogBean.findById(productCatalogId);
+//        List<ProductDetails> products = productBean.getAllProductsFromCatalog(productCatalog.getId());
+//        request.setAttribute("products", products);
+//                request.getRequestDispatcher("/WEB-INF/pages/products.jsp").forward(request, response);
+        request.setAttribute("activePage", "Products");
+
+        List<ProductDetails> products = productBean.getAllProducts();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("/WEB-INF/pages/products.jsp").forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +64,6 @@ public class Products extends HttpServlet {
         }
         response.sendRedirect(request.getContextPath() + "/Products");
     }
-
 
     @Override
     public String getServletInfo() {

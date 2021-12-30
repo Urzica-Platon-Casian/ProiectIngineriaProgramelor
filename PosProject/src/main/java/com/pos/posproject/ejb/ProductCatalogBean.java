@@ -53,7 +53,7 @@ public class ProductCatalogBean {
         return detailsProductatalogList;
     }
     
-    private ProductCatalogDetails findById(Integer productCatalogId)
+    public ProductCatalogDetails findById(Integer productCatalogId)
     {
         ProductCatalog productCatalog = em.find(ProductCatalog.class, productCatalogId);
         return new ProductCatalogDetails(productCatalog.getId(), productCatalog.getProductCatalogName());
