@@ -35,8 +35,8 @@ public class Product implements Serializable {
     private Double price;
     private String category;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="PRODUCTCATALOGS_KEY")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCTCATALOGS_KEY")
     private ProductCatalog productCatalog;
 
     public ProductCatalog getProductCatalog() {
@@ -46,12 +46,11 @@ public class Product implements Serializable {
     public void setProductCatalog(ProductCatalog productCatalog) {
         this.productCatalog = productCatalog;
     }
-    
+
     public Integer getId() {
         return id;
     }
 
-    
     public void setId(Integer id) {
         this.id = id;
     }
@@ -96,8 +95,6 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -122,5 +119,5 @@ public class Product implements Serializable {
     public String toString() {
         return "com.pos.posproject.entity.ProductCatalog[ id=" + id + " ]";
     }
-    
+
 }

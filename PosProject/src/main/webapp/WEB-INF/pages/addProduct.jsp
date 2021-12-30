@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Description </label>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Price </label>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Category </label>
@@ -62,25 +62,14 @@
                 </div>
             </div>
         </div>
-        
-        <%--   <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="description"> ProductCatalogId </label>
-                <input type="number" class="form-control" id="productCatalog_id" name="productCatalog_id" placeholder="ProductCatalog id" value="" required>
-                <div class="invalid-feedback">
-                    Catalog Id is required.
-                </div>
-            </div>
-        </div>
-        --%>
-          
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="productCatalog_id"> ProductCatalog </label>
                 <select class="form-select" id="productCatalog_id" name="productCatalog_id" required>
                     <option value=""> Choose... </option> 
                     <c:forEach var="productCatalog" items="${productCatalogs}" varStatus="status">
-                        <option value="${productCatalog.id}"> ${productCatalog.id} </option>
+                        <option value="${productCatalog.id}"> ${productCatalog.productCatalogName} </option>
                     </c:forEach>
                 </select>
                 <div class="invalid-feedback">
@@ -88,38 +77,32 @@
                 </div>
             </div>
         </div>
-        
-        
-        
-        
         <hr class="my-4">
         <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
     </form>
 
-
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="form-validation.js"></script>
     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict'
+    (function () {
+            'use strict';
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
 
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                    .forEach(function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (!form.checkValidity()) {
-                                event.preventDefault()
-                                event.stopPropagation()
-                            }
-
-                            form.classList.add('was-validated')
-                        }, false)
-                    })
-        })()
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                })
+            }, false);
+        }());
     </script>
 
 </t:pageTemplate>

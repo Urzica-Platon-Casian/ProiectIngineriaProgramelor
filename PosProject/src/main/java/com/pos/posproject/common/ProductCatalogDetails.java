@@ -5,13 +5,21 @@
  */
 package com.pos.posproject.common;
 
+import java.util.Collection;
+
 /**
  *
  * @author Monica
  */
 public class ProductCatalogDetails implements java.io.Serializable {
-     private Integer id;
+
+    private Integer id;
     private String productCatalogName;
+
+    public ProductCatalogDetails(Integer id, String productCatalogName) {
+        this.id = id;
+        this.productCatalogName = productCatalogName;
+    }
 
     public Integer getId() {
         return id;
@@ -20,13 +28,4 @@ public class ProductCatalogDetails implements java.io.Serializable {
     public String getProductCatalogName() {
         return productCatalogName;
     }
-
-    public ProductCatalogDetails(Integer id, String productCatalogName) {
-        this.id = id;
-        this.productCatalogName = productCatalogName;
-    }
-
-
- 
-    
 }

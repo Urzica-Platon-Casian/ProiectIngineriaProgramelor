@@ -5,17 +5,15 @@
  */
 package com.pos.posproject.servlet;
 
+import com.pos.posproject.common.ProductCatalogDetails;
 import com.pos.posproject.common.ProductDetails;
 import com.pos.posproject.ejb.ProductBean;
+import com.pos.posproject.ejb.ProductCatalogBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.security.DeclareRoles;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,29 +25,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 
-
-//@DeclareRoles({"AdminRole", "ClientRole"})
-//@ServletSecurity(
-       // value = @HttpConstraint(
-      //          rolesAllowed = {"AdminRole"}
-       // )
-//)
-
-
 @WebServlet(name = "Products", urlPatterns = {"/Products"})
 public class Products extends HttpServlet {
 
     @Inject
     private ProductBean productBean;
     
+    @Inject
+    private ProductCatalogBean productCatalogBean; 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         request.setAttribute("activePage", "Products");
-
-        List<ProductDetails> products = productBean.getAllProducts();
+        request.getRequestDispatcher("/WEB-INF/pages/addPhoto.jsp").forward(request, response);
+        Integer productCatalogId = Integer.parseInt(request.getParameter("id"));
+        ProductCatalogDetails productCatalog = productCatalogBean.findById(productCatalogId);
+        List<ProductDetails> products = productBean.getAllProductsFromCatalog(productCatalog.getId());
         request.setAttribute("products", products);
                 request.getRequestDispatcher("/WEB-INF/pages/products.jsp").forward(request, response);
     }

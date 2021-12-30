@@ -44,8 +44,8 @@ public class ProductCatalog implements Serializable {
     public void setProductCatalogName(String productCatalogName) {
         this.productCatalogName = productCatalogName;
     }
-    
-  @XmlTransient
+
+    @XmlTransient
     public Collection<Product> getProducts() {
         return products;
     }
@@ -53,9 +53,7 @@ public class ProductCatalog implements Serializable {
     public void setProducts(Collection<Product> products) {
         this.products = products;
     }
-    
-    
-      
+
     public Integer getId() {
         return id;
     }
@@ -88,5 +86,5 @@ public class ProductCatalog implements Serializable {
     public String toString() {
         return "com.pos.posproject.entity.ProductCatalog[ id=" + id + " ]";
     }
-    
+
 }

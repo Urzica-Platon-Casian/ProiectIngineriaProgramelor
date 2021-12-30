@@ -6,6 +6,8 @@
 package com.pos.posproject.ejb;
 
 import com.pos.posproject.common.ProductCatalogDetails;
+import com.pos.posproject.common.ProductDetails;
+import com.pos.posproject.entity.Product;
 import com.pos.posproject.entity.ProductCatalog;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +26,7 @@ import javax.persistence.Query;
 @Stateless
 public class ProductCatalogBean {
 
-   private static final Logger LOG = Logger.getLogger(ProductCatalogBean.class.getName());
+    private static final Logger LOG = Logger.getLogger(ProductCatalogBean.class.getName());
 
     @PersistenceContext
     private EntityManager em;
@@ -41,19 +43,28 @@ public class ProductCatalogBean {
     }
 
     private List<ProductCatalogDetails> copyProductCatalogsToDetails(List<ProductCatalog> productCatalogs) {
-        List<ProductCatalogDetails> detailsList = new ArrayList<>();
+        List<ProductCatalogDetails> detailsProductatalogList = new ArrayList<>();
         for (ProductCatalog productCatalog : productCatalogs) {
-            ProductCatalogDetails productCatalogDetails = new ProductCatalogDetails(productCatalog.getId(),
+            ProductCatalogDetails productCatalogDetails;
+            productCatalogDetails = new ProductCatalogDetails(productCatalog.getId(),
                     productCatalog.getProductCatalogName());
-            detailsList.add(productCatalogDetails);
+            detailsProductatalogList.add(productCatalogDetails);
         }
-        return detailsList;
+        return detailsProductatalogList;
     }
-    public Collection<String> findProductCatalogNames(Collection<Integer> productCatalogIds){
+    
+    private ProductCatalogDetails findById(Integer productCatalogId)
+    {
+        ProductCatalog productCatalog = em.find(ProductCatalog.class, productCatalogId);
+        return new ProductCatalogDetails(productCatalog.getId(), productCatalog.getProductCatalogName());
+    }
+
+    public Collection<String> findProductCatalogNames(Collection<Integer> productCatalogIds) {
         LOG.info("findProductCatalogNames");
-        List<String> productCatalogNames=(List<String>) em.createQuery("SELECT u.productCatalogName FROM ProductCatalog u WHERE u.id IN ?1")
-                    .setParameter(1,productCatalogIds)
-                    .getResultList();
+        List<String> productCatalogNames = (List<String>) em.createQuery("SELECT u.productCatalogName FROM ProductCatalog u WHERE u.id IN ?1")
+                .setParameter(1, productCatalogIds)
+                .getResultList();
         return productCatalogNames;
-        }
+    }
+
 }

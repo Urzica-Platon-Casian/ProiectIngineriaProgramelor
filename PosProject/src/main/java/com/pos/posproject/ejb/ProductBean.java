@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,17 +26,17 @@ import javax.persistence.Query;
 public class ProductBean {
 
     private static final Logger LOG = Logger.getLogger(ProductBean.class.getName());
+
     @PersistenceContext
     private EntityManager em;
-    
-    
+
     public ProductDetails findById(Integer productId) {
         Product product = em.find(Product.class, productId);
-        return new ProductDetails(product.getId(), product.getBarcode(), product.getName(),product.getDescription(), product.getPrice(), product.getCategory(), product.getProductCatalog().getProductCatalogName());
-   
-    
+        return new ProductDetails(product.getId(), product.getBarcode(),
+                product.getName(), product.getDescription(), product.getPrice(),
+                product.getCategory(), product.getProductCatalog().getProductCatalogName());
     }
-    
+
     public List<ProductDetails> getAllProducts() {
         LOG.info("getAllProducts");
         try {
@@ -47,10 +48,23 @@ public class ProductBean {
         }
     }
     
+    
+    public List<ProductDetails> getAllProductsFromCatalog(Integer ProductCatalogId) {
+        LOG.info("getAllProducts");
+        try {
+             TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.productCatalog.id = :id", Product.class)
+                     .setParameter("id", ProductCatalogId);
+            List<Product> products = typedQuery.getResultList();
+            return copyProductsToDetails(products);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
     private List<ProductDetails> copyProductsToDetails(List<Product> products) {
         List<ProductDetails> detailsList = new ArrayList<>();
         for (Product product : products) {
-            ProductDetails productDetails = new ProductDetails(product.getId(), 
+            ProductDetails productDetails = new ProductDetails(product.getId(),
                     product.getBarcode(),
                     product.getName(),
                     product.getDescription(),
@@ -61,8 +75,8 @@ public class ProductBean {
         }
         return detailsList;
     }
-    
-    public void createProduct(String barcode, String name, String description, Double price, String category, int productCatalog) {
+
+    public void createProduct(String barcode, String name, String description, Double price, String category, Integer productCatalogId) {
         LOG.info("createProduct");
         Product product = new Product();
         product.setBarcode(barcode);
@@ -70,12 +84,11 @@ public class ProductBean {
         product.setDescription(description);
         product.setPrice(price);
         product.setCategory(category);
-       
-        
-        ProductCatalog productCatalogId = em.find(ProductCatalog.class, productCatalog);
-        productCatalogId.getProducts().add(product);
-        product.setProductCatalog(productCatalogId);
-        
+
+        ProductCatalog productCatalog = em.find(ProductCatalog.class, productCatalogId);
+        productCatalog.getProducts().add(product);
+        product.setProductCatalog(productCatalog);
+
         em.persist(product);
     }
 
@@ -101,8 +114,10 @@ public class ProductBean {
         LOG.info("deleteProductsByIds");
         for (Integer id : ids) {
             Product product = em.find(Product.class, id);
+            ProductCatalog ProductCatalog = product.getProductCatalog();
+            ProductCatalog.getProducts().remove(product);
             em.remove(product);
         }
     }
-    
+
 }

@@ -31,11 +31,4 @@
         </div>
     </c:forEach>
     </form>
-    
-
-    <c:forEach var="productCatalogName" items="${invoices}" varStatus="status">
-        ${productCatalogName}
-    </c:forEach>
-
-
 </t:pageTemplate>
