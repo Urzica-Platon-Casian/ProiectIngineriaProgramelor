@@ -25,7 +25,7 @@
                 <input type="checkbox" name="productCatalog_ids" value="${productCatalog.id}" />
             </div>
                 <div class="col-md-4">
-                <a href="${pageContext.request.contextPath}/Products">${productCatalog.productCatalogName}</a> 
+                <a href="${pageContext.request.contextPath}/ProductsFromCatalog?id=${productCatalog.id}">${productCatalog.productCatalogName}</a> 
             </div>
                 
         </div>

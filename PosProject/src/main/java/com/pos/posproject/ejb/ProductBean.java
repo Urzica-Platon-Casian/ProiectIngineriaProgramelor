@@ -48,7 +48,6 @@ public class ProductBean {
         }
     }
     
-    
     public List<ProductDetails> getAllProductsFromCatalog(Integer ProductCatalogId) {
         LOG.info("getAllProducts");
         try {
