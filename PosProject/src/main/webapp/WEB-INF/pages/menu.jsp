@@ -19,6 +19,14 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/productCatalogs.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/ProductCatalogs">Product Catalogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/products.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/Products">Products</a>
+                </li>
             </ul>
             <ul class="navbar-nav d-flex">
                 <li class="navbar-item">
