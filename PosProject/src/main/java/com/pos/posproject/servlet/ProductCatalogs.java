@@ -44,7 +44,6 @@ public class ProductCatalogs extends HttpServlet {
 
         String[] productCatalogIdsAsString = request.getParameterValues("productCatalog_ids");
         if (productCatalogIdsAsString != null) {
-            //   Set<Integer> productCatalogIds=new HashSet<Integer>();
             List<Integer> productCatalogIds = new ArrayList<>();
             for (String productCatalogIdAsString : productCatalogIdsAsString) {
                 productCatalogIds.add(Integer.parseInt(productCatalogIdAsString));// productCatalogIds.add(Integer.parseInt(productCatalogIdAsString));

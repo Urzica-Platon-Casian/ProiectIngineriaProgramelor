@@ -36,9 +36,7 @@ public class AddProduct extends HttpServlet {
 
         List<ProductCatalogDetails> productCatalogs = productCatalogBean.getAllProductCatalogs();
         request.setAttribute("productCatalogs", productCatalogs);
-
         request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
-
     }
 
     @Override
