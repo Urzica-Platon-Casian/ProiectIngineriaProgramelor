@@ -5,7 +5,6 @@
 package com.pos.posproject.servlet.user;
 
 import com.pos.posproject.common.UserDetails;
-import com.pos.posproject.ejb.InvoiceBean;
 import com.pos.posproject.ejb.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,8 +31,7 @@ public class Users extends HttpServlet {
     @Inject
     private UserBean userBean;
     
-    @Inject
-    InvoiceBean invoiceBean;
+  
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -78,12 +76,6 @@ public class Users extends HttpServlet {
         
         List<UserDetails> users = userBean.getAllUsers();
         request.setAttribute("users", users);
-        
-        if(!invoiceBean.getUserIds().isEmpty()){
-            Collection<String> usernames=userBean.findUsernames(invoiceBean.getUserIds());
-            request.setAttribute("invoices", usernames);
-        }
-        
         request.getRequestDispatcher("/WEB-INF/pages/users.jsp").forward(request, response);
         
          processRequest(request, response);
@@ -115,7 +107,6 @@ public class Users extends HttpServlet {
                    for(String userIdAsString : userIdsAsString){
                        userIds.add(Integer.parseInt(userIdAsString));
                    }
-                   invoiceBean.getUserIds().addAll(userIds);
                }
                response.sendRedirect(request.getContextPath()+"/Users");
     }
