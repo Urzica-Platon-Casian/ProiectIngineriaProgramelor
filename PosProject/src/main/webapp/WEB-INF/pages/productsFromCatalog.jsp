@@ -11,11 +11,40 @@
 <t:pageTemplate pageTitle="Products">
     <h1>Products</h1>
     <form method="POST" action="${pageContext.request.contextPath}/ProductsFromCatalog">
-        <button class="btn btn-danger" type="submit">Delete Products</button>   
-        <input type="hidden" name="catalog_id" value="<c:out value="${param['id']}"/>" />
+
+        <input type="hidden" name="catalog_id" value="<c:out value="${param['id']}"/>" />           
+        <div class="row" style="padding: 10px;">
+            <div class="col-md-2">
+                <b> Select product</b>                    
+            </div>
+            <div class="col-md-1">
+                <b>Id</b>                   
+            </div>
+            <div class="col-md-1">
+                <b>Barcode</b>                   
+            </div>
+            <div class="col-md-1">
+                <b>Name</b>                   
+            </div>
+            <div class="col-md-2">
+                <b>Description</b>                    
+            </div>
+            <div class="col-md-1">
+                <b>Price</b>      
+            </div>
+            <div class="col-md-1">
+                <b>Category</b>               
+            </div>  
+            <div class="col-md-2">
+                <button class="btn btn-danger" type="submit">Delete Products</button>    
+            </div>  
+        </div>  
+
+
+
         <c:forEach var="product" items="${products}" varStatus="status">
-            <div class="row">
-                <div class="col-md">
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-2">
                     <input type="checkbox" name="product_ids" value="${product.id}" />
                 </div>
                 <div class="col-md-1">
@@ -27,7 +56,7 @@
                 <div class="col-md-1">
                     ${product.name}
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     ${product.description}
                 </div>
                 <div class="col-md-1">
@@ -35,7 +64,8 @@
                 </div>
                 <div class="col-md-1">
                     ${product.category}
-                </div>                  
+                </div>
+
             </div>
         </c:forEach>
     </t:pageTemplate>

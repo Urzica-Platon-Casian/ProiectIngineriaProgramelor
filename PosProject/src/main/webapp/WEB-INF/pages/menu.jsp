@@ -15,10 +15,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/about.jsp">About</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/productCatalogs.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/ProductCatalogs">Product Catalogs</a>
@@ -26,6 +23,10 @@
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/products.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
             </ul>
             <ul class="navbar-nav d-flex">
