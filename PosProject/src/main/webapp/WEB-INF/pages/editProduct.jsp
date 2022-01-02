@@ -72,7 +72,7 @@
                     </c:forEach>
                 </select>
                 <div class="invalid-feedback">
-                    Please select a catalog.
+                    Please select a catalog name.
                 </div>
             </div>
         </div>
