@@ -24,6 +24,10 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/products.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Products">Products</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/actions.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/Actions">Actions</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
