@@ -24,12 +24,21 @@
                 <div class="col-md">
                     <input type="checkbox" name="user_ids" value="${user.id}" /> 
                 </div>
-                <div class="col-md-4">
-                    ${user.username}
-                </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    ${user.first_name}
+                </div>
+                <div class="col-md-2">
+                    ${user.last_name}
+                </div>
+
+                
+                <div class="col-md-2">
                     ${user.position}
+                </div>
+
+                <div class="col-md-2">
+                    ${user.username}
                 </div>
             </div>
                 <div class="col-md-2">
