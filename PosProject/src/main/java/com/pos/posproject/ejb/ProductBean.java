@@ -47,12 +47,12 @@ public class ProductBean {
             throw new EJBException(ex);
         }
     }
-    
+
     public List<ProductDetails> getAllProductsFromCatalog(Integer ProductCatalogId) {
         LOG.info("getAllProducts");
         try {
-             TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.productCatalog.id = :id", Product.class)
-                     .setParameter("id", ProductCatalogId);
+            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.productCatalog.id = :id", Product.class)
+                    .setParameter("id", ProductCatalogId);
             List<Product> products = typedQuery.getResultList();
             return copyProductsToDetails(products);
         } catch (Exception ex) {
@@ -118,5 +118,4 @@ public class ProductBean {
             em.remove(product);
         }
     }
-
 }

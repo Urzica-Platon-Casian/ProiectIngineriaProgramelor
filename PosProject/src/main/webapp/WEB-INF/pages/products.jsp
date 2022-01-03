@@ -12,12 +12,45 @@
 <t:pageTemplate pageTitle="Products">
     <h1>Products</h1>
     <form method="POST" action="${pageContext.request.contextPath}/Products">
-        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/Products/Create" role="button">Add Product</a>
+
         <button hidden class="btn btn-danger" type="submit">Delete Products</button>
+        <div class="row" style="padding: 10px;">
+            <div class="col-md-2">
+                <b> Select product</b>                    
+            </div>
+            <div class="col-md-1">
+                <b>Id</b>                   
+            </div>
+            <div class="col-md-1">
+                <b>Barcode</b>                   
+            </div>
+            <div class="col-md-1">
+                <b>Name</b>                   
+            </div>
+            <div class="col-md-2">
+                <b>Description</b>                    
+            </div>
+            <div class="col-md-1">
+                <b>Price</b>      
+            </div>
+            <div class="col-md-1">
+                <b>Category</b>               
+            </div>  
+            <div class="col-md-1">
+                <b>Edit</b>
+            </div>  
+            <div class="col-md-2">
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/Products/Create" role="button">Add Product</a>
+            </div>  
+        </div>  
+
+
+
+
         <c:forEach var="product" items="${products}" varStatus="status">
-            <div class="row">
-                <div class="col-md">
-                    <input type="checkbox" name="product_ids" value="${product.id}" />
+            <div class="row" style="padding: 10px;">
+                <div class="col-md-2">
+                    <input type="checkbox" name="product_ids" value="${product.id}" />                   
                 </div>
                 <div class="col-md-1">
                     ${product.id}
@@ -28,7 +61,7 @@
                 <div class="col-md-1">
                     ${product.name}
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     ${product.description}
                 </div>
                 <div class="col-md-1">
@@ -38,8 +71,9 @@
                     ${product.category}
                 </div>                  
                 <div class="col-md-1">
-                    <a class="btn btn-secondary" href="" role="button"> Edit Product </a>
+                    <a class="btn btn-primary " href="${pageContext.request.contextPath}/Products/Update?id=${product.id}" role="button"> Edit</a>
                 </div>
+
             </div>
         </c:forEach>
     </t:pageTemplate>
