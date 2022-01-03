@@ -1,6 +1,6 @@
-s<%-- 
+<%-- 
     Document   : editUser
-    Created on : 03.01.2022, 13:16:01
+    Created on : 03.01.2022, 23:11:42
     Author     : stupa
 --%>
 
@@ -34,7 +34,7 @@ s<%--
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="position">Position</label>
-                <select class="custom-select d-block w-100" id="position" name="position" required value="${user.Position}">
+                <select class="custom-select d-block w-100" id="position" name="position" required value="${user.position}">
                     <option value="">Choose...</option><!-- comment -->
                     <option value="ADMINISTRATOR">Administrator</option><!-- comment -->
                     <option value="CASHIER">Cashier</option>
@@ -48,7 +48,7 @@ s<%--
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username"  required value="${user.Username}">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username"  required value="${user.username}">
                 <div class="invalid-feedback">
                     Username is required.
                 </div>
@@ -64,3 +64,4 @@ s<%--
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="form-validation.js"></script>     
 </t:pageTemplate>
+
