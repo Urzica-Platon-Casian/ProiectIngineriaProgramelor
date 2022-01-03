@@ -13,6 +13,7 @@ import com.pos.posproject.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -30,6 +31,11 @@ public class UserBean {
     private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
     @PersistenceContext
     private EntityManager em;
+    
+    public UserDetails findById(Integer userId){
+        User user=em.find(User.class, userId);
+        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition());
+    }
 
     public void createUser(String username, String first_name,String last_name, String passwordSha256, String position) {
         User user = new User();
@@ -75,5 +81,23 @@ public class UserBean {
             detailsList.add(userDetails);
         }
         return detailsList;
+    }
+
+    public void update(int userId, String username, String first_name, String last_name, String position) {
+        LOG.info("updateUser");
+        User user=em.find(User.class, userId);
+        user.setFirstname(first_name);
+        user.setLastname(last_name);
+        user.setUsername(username);
+        user.setPosition(position);
+    }
+
+    public void deleteUsersByIds(Collection<Integer> ids) {
+        LOG.info("deleteUsersByIds");
+        for(Integer id:ids){
+            User user=em.find(User.class, id);
+            em.remove(user);
+        }
+        
     }
 }
