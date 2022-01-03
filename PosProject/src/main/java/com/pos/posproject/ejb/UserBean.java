@@ -34,7 +34,7 @@ public class UserBean {
     
     public UserDetails findById(Integer userId){
         User user=em.find(User.class, userId);
-        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition());
+        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getPosition(),user.getUsername());
     }
 
     public void createUser(String username, String first_name,String last_name, String passwordSha256, String position) {
@@ -74,22 +74,24 @@ public class UserBean {
         List<UserDetails> detailsList = new ArrayList<>();
         for (User user : users) {
             UserDetails userDetails = new UserDetails(user.getId(),
-                    user.getUsername(),
+                    
                     user.getFirstname(),
                     user.getLastname(),
-                    user.getPosition());
+                    user.getPosition(),
+                    user.getUsername());
             detailsList.add(userDetails);
         }
         return detailsList;
     }
 
-    public void update(int userId, String username, String first_name, String last_name, String position) {
+    public void update(Integer userId,  String first_name, String last_name, String position,String username) {
         LOG.info("updateUser");
         User user=em.find(User.class, userId);
         user.setFirstname(first_name);
         user.setLastname(last_name);
+         user.setPosition(position);
         user.setUsername(username);
-        user.setPosition(position);
+       
     }
 
     public void deleteUsersByIds(Collection<Integer> ids) {

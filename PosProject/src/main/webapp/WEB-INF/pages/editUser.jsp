@@ -1,4 +1,4 @@
-<%-- 
+s<%-- 
     Document   : editUser
     Created on : 03.01.2022, 13:16:01
     Author     : stupa
@@ -15,7 +15,7 @@
        <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="first_name">First name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" required value="${user.first_name}" /><!-- comment -->
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" required value="${user.firstName}" >
                 <div class="invalid-feedback">
                    First name is required.
                 </div>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="last_name">Last name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"  required value="${user.last_name}"/>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"  required value="${user.lastName}">
                 <div class="invalid-feedback">
                    Last name is required.
                 </div>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="position">Position</label>
-                <select class="custom-select d-block w-100" id="position" name="position" required>
+                <select class="custom-select d-block w-100" id="position" name="position" required value="${user.Position}">
                     <option value="">Choose...</option><!-- comment -->
                     <option value="ADMINISTRATOR">Administrator</option><!-- comment -->
                     <option value="CASHIER">Cashier</option>
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username"  required value="${user.username}"/>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username"  required value="${user.Username}">
                 <div class="invalid-feedback">
                     Username is required.
                 </div>

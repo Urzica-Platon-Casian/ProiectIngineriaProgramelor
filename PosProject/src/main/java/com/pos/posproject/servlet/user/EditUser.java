@@ -69,7 +69,7 @@ public class EditUser extends HttpServlet {
   
     int userId=Integer.parseInt(request.getParameter("id"));
     UserDetails user=userBean.findById(userId);
-    request.setAttribute("users", users);
+    request.setAttribute("user", user);
     request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
     
     }
@@ -85,13 +85,14 @@ public class EditUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String first_name=request.getParameter("first_name");
-        String last_name=request.getParameter("last_name");
-        String position = request.getParameter("position");
-        int userId=Integer.parseInt(request.getParameter("user_id"));
         
-        userBean.update(userId,username,first_name, last_name,position);
+        String firstName=request.getParameter("first_name");
+        String lastName=request.getParameter("last_name");
+        String Position = request.getParameter("position");
+        String Username=request.getParameter("username");
+        Integer userId=Integer.parseInt(request.getParameter("user_id"));
+        
+        userBean.update(userId,firstName, lastName,Position,Username);
          response.sendRedirect(request.getContextPath()+"/Users");
     }
 
