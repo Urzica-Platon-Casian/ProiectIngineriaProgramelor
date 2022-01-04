@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Date;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,6 +34,8 @@ public class Sale implements Serializable {
     
     private int cashierId;
     private Date date;
+    
+    @Enumerated(EnumType.ORDINAL)
     private SaleStatus status;
     
     @OneToOne
