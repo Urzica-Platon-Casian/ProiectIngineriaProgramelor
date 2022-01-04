@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,21 +32,21 @@ public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
     private int cashierId;
     private Date date;
-    
+
     @Enumerated(EnumType.ORDINAL)
     private SaleStatus status;
-    
+
     @OneToOne
     @JoinColumn(name = "PAYMENT_KEY")
     Payment payment;
-    
+
     @JsonbTransient
     @OneToMany(mappedBy = "sale")
     private Collection<LineItem> saleProducts;
-    
+
     public Integer getId() {
         return id;
     }
@@ -69,7 +70,8 @@ public class Sale implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    
+    @XmlTransient
     public Collection<LineItem> getSaleProducts() {
         return saleProducts;
     }
@@ -93,7 +95,6 @@ public class Sale implements Serializable {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
-    
 
     @Override
     public int hashCode() {
@@ -119,5 +120,5 @@ public class Sale implements Serializable {
     public String toString() {
         return "com.pos.posproject.entity.Sale[ id=" + id + " ]";
     }
-    
+
 }
