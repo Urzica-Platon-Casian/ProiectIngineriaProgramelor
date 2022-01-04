@@ -28,7 +28,7 @@ public class LineItem implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "PRODUCT_KEY")
-    Product car;
+    Product product;
 
     public Integer getId() {
         return id;
@@ -43,11 +43,11 @@ public class LineItem implements Serializable {
     }
 
     public Product getCar() {
-        return car;
+        return product;
     }
 
     public void setCar(Product car) {
-        this.car = car;
+        this.product = car;
     }
     public void setId(Integer id) {
         this.id = id;
