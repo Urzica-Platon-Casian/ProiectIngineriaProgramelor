@@ -9,6 +9,8 @@ import com.pos.posproject.enums.PaymentMethods;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,8 @@ public class Payment implements Serializable {
     
     private Double amount;
     private Date date;
+    
+    @Enumerated(EnumType.ORDINAL)
     private PaymentMethods method;
 
     public Integer getId() {
