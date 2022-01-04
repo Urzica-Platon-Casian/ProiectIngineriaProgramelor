@@ -51,9 +51,10 @@ public class EditProduct extends HttpServlet {
         String description = request.getParameter("description");
         String price = request.getParameter("price");
         String category = request.getParameter("category");
+        String quantity = request.getParameter("quantity");
         int productId = Integer.parseInt(request.getParameter("product_id"));
         int productCatalogId = Integer.parseInt(request.getParameter("productCatalog_id"));
-        productBean.updateProduct(productId, barcode, name, description, Double.valueOf(price), category, productCatalogId);
+        productBean.updateProduct(productId, barcode, name, description, Double.valueOf(price), category, Integer.valueOf(quantity), productCatalogId);
         response.sendRedirect(request.getContextPath() + "/Products");
     }
 

@@ -11,18 +11,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:pageTemplate pageTitle="Add Product">
-    <h1>Add Product</h1>
+    <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Add Product</h1>
     <form class="needs-validation" novalidate method="POST" action="${pageContext.request.contextPath}/Products/Create">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="barcode"> Barcode </label>
-                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" value="" required>
-                <div class="invalid-feedback">
-                    Barcode is required.
-                </div>
+                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" value="">
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="name"> Name </label>
@@ -32,7 +28,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Description </label>
@@ -42,7 +37,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Price </label>
@@ -52,7 +46,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="description"> Category </label>
@@ -62,10 +55,18 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="productCatalog_id"> ProductCatalog </label>
+                <label for="description"> Quantity </label>
+                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value="" required>
+                <div class="invalid-feedback">
+                    Quantity is required.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="productCatalog_id"> Product Catalog </label>
                 <select class="form-select" id="productCatalog_id" name="productCatalog_id" required>
                     <option value=""> Choose... </option> 
                     <c:forEach var="productCatalog" items="${productCatalogs}" varStatus="status">
@@ -80,11 +81,10 @@
         <hr class="my-4">
         <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
     </form>
-
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="form-validation.js"></script>
     <script>
-    (function () {
+        (function () {
             'use strict';
 
             window.addEventListener('load', function () {
@@ -104,5 +104,4 @@
             }, false);
         }());
     </script>
-
 </t:pageTemplate>

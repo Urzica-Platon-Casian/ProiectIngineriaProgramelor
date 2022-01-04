@@ -10,15 +10,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:pageTemplate pageTitle="ProductCatalogs">
-    <h1>ProductCatalogs</h1>
+    <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Product Catalogs</h1>
     <form method="POST" action="${pageContext.request.contextPath}/ProductCatalogs">
-
         <%-- <c:if test="${pageContext.request.isUserInRole('AdminRole')}">
             <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/ProductCatalogs/Create" role="button">Add ProductCatalog</a>
             <button class="btn btn-secondary" type="submit">Invoice</button>    
         </c:if> --%>
-
-
         <c:forEach var="productCatalog" items="${productCatalogs}" varStatus="status">
             <div class="row" style="padding: 10px;">
                 <div class="col-md-4">

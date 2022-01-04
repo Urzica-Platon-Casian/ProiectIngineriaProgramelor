@@ -18,6 +18,7 @@ public class ProductDetails implements java.io.Serializable{
     private Double price;
     private String category;
     private String productCatalogName;
+    private int quantity;
 
     public Integer getId() {
         return id;
@@ -46,8 +47,12 @@ public class ProductDetails implements java.io.Serializable{
     public String getProductCatalogName() {
         return productCatalogName;
     }
+    
+    public int getQuantity() {
+        return quantity;
+    }
 
-    public ProductDetails(Integer id, String barcode, String name, String description, Double price, String category, String productCatalogName) {
+    public ProductDetails(Integer id, String barcode, String name, String description, Double price, String category, String productCatalogName, int quantity) {
         this.id = id;
         this.barcode = barcode;
         this.name = name;
@@ -55,10 +60,6 @@ public class ProductDetails implements java.io.Serializable{
         this.price = price;
         this.category = category;
         this.productCatalogName = productCatalogName;
-    }
-
-   
-    
-    
-    
+        this.quantity = quantity;
+    } 
 }

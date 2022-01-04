@@ -15,10 +15,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="barcode"> Barcode </label>
-                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" required value="${product.barcode}">
-                <div class="invalid-feedback">
-                    Barcode is required.
-                </div>
+                <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" value="${product.barcode}">
             </div>
         </div>
 
@@ -61,7 +58,15 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="description"> Quantity </label>
+                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required value="${product.quantity}">
+                <div class="invalid-feedback">
+                    Quantity is required.
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="productCatalog_id"> Catalog </label>
@@ -84,6 +89,26 @@
 
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="form-validation.js"></script>   
+    <script>
+        (function () {
+            'use strict';
 
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                })
+            }, false);
+        }());
+    </script>
 </t:pageTemplate>
 

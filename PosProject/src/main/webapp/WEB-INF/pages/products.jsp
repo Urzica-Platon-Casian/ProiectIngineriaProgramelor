@@ -10,14 +10,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:pageTemplate pageTitle="Products">
-    <h1>Products</h1>
+    <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Products</h1>
     <form method="POST" action="${pageContext.request.contextPath}/Products">
-
-        <button hidden class="btn btn-danger" type="submit">Delete Products</button>
-        <div class="row" style="padding: 10px;">
-            <div class="col-md-2">
-                <b> Select product</b>                    
-            </div>
+        <div class="row" style="padding: 10px; text-align: center">
             <div class="col-md-1">
                 <b>Id</b>                   
             </div>
@@ -35,7 +30,10 @@
             </div>
             <div class="col-md-1">
                 <b>Category</b>               
-            </div>  
+            </div>
+            <div class="col-md-1">
+                <b>Quantity</b>               
+            </div>
             <div class="col-md-1">
                 <b>Edit</b>
             </div>  
@@ -43,15 +41,8 @@
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/Products/Create" role="button">Add Product</a>
             </div>  
         </div>  
-
-
-
-
         <c:forEach var="product" items="${products}" varStatus="status">
-            <div class="row" style="padding: 10px;">
-                <div class="col-md-2">
-                    <input type="checkbox" name="product_ids" value="${product.id}" />                   
-                </div>
+            <div class="row" style="padding: 10px; text-align: center">
                 <div class="col-md-1">
                     ${product.id}
                 </div>
@@ -69,11 +60,13 @@
                 </div>
                 <div class="col-md-1">
                     ${product.category}
-                </div>                  
+                </div>
+                <div class="col-md-1">
+                    ${product.quantity}
+                </div> 
                 <div class="col-md-1">
                     <a class="btn btn-primary " href="${pageContext.request.contextPath}/Products/Update?id=${product.id}" role="button"> Edit</a>
                 </div>
-
             </div>
         </c:forEach>
     </t:pageTemplate>
