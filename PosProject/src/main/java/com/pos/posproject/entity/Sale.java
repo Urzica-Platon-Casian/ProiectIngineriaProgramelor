@@ -5,34 +5,47 @@
  */
 package com.pos.posproject.entity;
 
-import com.pos.posproject.enums.PaymentMethods;
+import com.pos.posproject.enums.SaleStatus;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Rori
  */
 @Entity
-public class Payment implements Serializable {
+public class Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    private Double amount;
+    private int cashierId;
     private Date date;
     
     @Enumerated(EnumType.ORDINAL)
-    private PaymentMethods method;
-
+    private SaleStatus status;
+    
+    @OneToOne
+    @JoinColumn(name = "PAYMENT_KEY")
+    Payment payment;
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "sale")
+    private Collection<LineItem> saleProducts;
+    
     public Integer getId() {
         return id;
     }
@@ -41,12 +54,12 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public int getCashierId() {
+        return cashierId;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setCashierId(int cashierId) {
+        this.cashierId = cashierId;
     }
 
     public Date getDate() {
@@ -57,13 +70,30 @@ public class Payment implements Serializable {
         this.date = date;
     }
 
-    public PaymentMethods getMethod() {
-        return method;
+    public Collection<LineItem> getSaleProducts() {
+        return saleProducts;
     }
 
-    public void setMethod(PaymentMethods method) {
-        this.method = method;
+    public void setSaleProducts(Collection<LineItem> saleProducts) {
+        this.saleProducts = saleProducts;
     }
+
+    public SaleStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SaleStatus status) {
+        this.status = status;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -75,10 +105,10 @@ public class Payment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Payment)) {
+        if (!(object instanceof Sale)) {
             return false;
         }
-        Payment other = (Payment) object;
+        Sale other = (Sale) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -87,7 +117,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.posproject.entity.Payment[ id=" + id + " ]";
+        return "com.pos.posproject.entity.Sale[ id=" + id + " ]";
     }
     
 }

@@ -5,6 +5,7 @@
     <jta-data-source>jdbc/POS</jta-data-source>
     <class>com.pos.posproject.entity.ProductCatalog</class>
     <class>com.pos.posproject.entity.LineItem</class>
+    <class>com.pos.posproject.entity.Sale</class>
     <class>com.pos.posproject.entity.Payment</class>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
