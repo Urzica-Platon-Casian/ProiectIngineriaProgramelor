@@ -61,7 +61,15 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="description"> Quantity </label>
+                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required value="${product.quantity}">
+                <div class="invalid-feedback">
+                    Quantity is required.
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="productCatalog_id"> Catalog </label>
