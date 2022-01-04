@@ -19,8 +19,8 @@ import javax.persistence.Table;
  *
  * @author Monica
  */
-@Entity
 
+@Entity
 @Table(name = "PRODUCT")
 
 public class Product implements Serializable {
@@ -34,6 +34,7 @@ public class Product implements Serializable {
     private String description;
     private Double price;
     private String category;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCTCATALOGS_KEY")
@@ -93,6 +94,14 @@ public class Product implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
