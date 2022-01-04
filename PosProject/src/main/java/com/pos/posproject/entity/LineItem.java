@@ -33,6 +33,10 @@ public class LineItem implements Serializable {
     public Integer getId() {
         return id;
     }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -42,15 +46,12 @@ public class LineItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public Product getCar() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setCar(Product car) {
-        this.product = car;
-    }
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
