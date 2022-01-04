@@ -34,7 +34,7 @@ public class ProductBean {
         Product product = em.find(Product.class, productId);
         return new ProductDetails(product.getId(), product.getBarcode(),
                 product.getName(), product.getDescription(), product.getPrice(),
-                product.getCategory(), product.getProductCatalog().getProductCatalogName());
+                product.getCategory(), product.getProductCatalog().getProductCatalogName(), product.getQuantity());
     }
 
     public List<ProductDetails> getAllProducts() {
@@ -69,13 +69,14 @@ public class ProductBean {
                     product.getDescription(),
                     product.getPrice(),
                     product.getCategory(),
-                    product.getProductCatalog().getProductCatalogName());
+                    product.getProductCatalog().getProductCatalogName(),
+                    product.getQuantity());
             detailsList.add(productDetails);
         }
         return detailsList;
     }
 
-    public void createProduct(String barcode, String name, String description, Double price, String category, Integer productCatalogId) {
+    public void createProduct(String barcode, String name, String description, Double price, String category, int quantity, Integer productCatalogId) {
         LOG.info("createProduct");
         Product product = new Product();
         product.setBarcode(barcode);
@@ -83,6 +84,7 @@ public class ProductBean {
         product.setDescription(description);
         product.setPrice(price);
         product.setCategory(category);
+        product.setQuantity(quantity);
 
         ProductCatalog productCatalog = em.find(ProductCatalog.class, productCatalogId);
         productCatalog.getProducts().add(product);
@@ -91,7 +93,7 @@ public class ProductBean {
         em.persist(product);
     }
 
-    public void updateProduct(int productId, String barcode, String name, String description, Double price, String category, Integer productCatalogId) {
+    public void updateProduct(int productId, String barcode, String name, String description, Double price, String category, int quantity, Integer productCatalogId) {
 
         LOG.info("updateProduct");
         Product product = em.find(Product.class, productId);
@@ -100,7 +102,8 @@ public class ProductBean {
         product.setDescription(description);
         product.setPrice(price);
         product.setCategory(category);
-
+        product.setQuantity(quantity);
+        
         ProductCatalog oldProductCatalog = product.getProductCatalog();
         oldProductCatalog.getProducts().remove(product);
 
