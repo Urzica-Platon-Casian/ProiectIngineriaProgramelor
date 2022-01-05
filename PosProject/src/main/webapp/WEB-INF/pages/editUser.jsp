@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="last_name">Username</label>
-                <input type="text" class="form-control" id="last_name" name="username" placeholder="" value="${user.username}" required>
+                <input type="text" class="form-control" id="username" name="username" placeholder="" value="${user.username}" required>
                 <div class="invalid-feedback">
                     Username is required.
                 </div>
@@ -50,6 +50,28 @@
                 </select>    
                 <div class="invalid-feedback">
                     Please select a position.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="last_name">Validation</label>
+                <select class="custom-select d-block w-100" id="validation" name="validation" required>
+                    <option value="">Choose...</option>
+                    <c:choose>
+                        <c:when test="${user.validation eq true}">
+                            <option selected>VALID</option>
+                            <option>INVALID</option>
+                        </c:when>
+                        <c:when test="${user.validation eq false}">
+                            <option>VALID</option>
+                            <option selected>INVALID</option>
+                        </c:when>
+                    </c:choose>
+                </select>    
+                <div class="invalid-feedback">
+                    Validation is required.
                 </div>
             </div>
         </div>

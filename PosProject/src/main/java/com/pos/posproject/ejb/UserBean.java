@@ -48,7 +48,8 @@ public class UserBean {
     public UserDetails findUserById(Integer userId) {
         LOG.info("findUserById");
         User user = em.find(User.class, userId);
-        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
+        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),
+                user.getUsername(),user.getPosition(), user.getValidation());
     }
 
     public List<UserDetails> getAllUsers() {
@@ -65,7 +66,8 @@ public class UserBean {
     private List<UserDetails> copyUsersToDetails(List<User> users) {
         List<UserDetails> detailsList = new ArrayList<>();
         for (User user : users) {
-            UserDetails userDetails = new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
+            UserDetails userDetails = new UserDetails(user.getId(),user.getFirstname(),
+                    user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
             detailsList.add(userDetails);
         }
         return detailsList;
@@ -77,6 +79,18 @@ public class UserBean {
             User user = em.find(User.class, id);
             em.remove(user);
         }
+    }
+    
+    public void updateUser(Integer id, String firstName, String lastName, 
+            String username, String position, Boolean validation)
+    {
+        LOG.info("updateUser");
+        User user = em.find(User.class, id);
+        user.setFirstname(firstName);
+        user.setLastname(lastName);
+        user.setUsername(username);
+        user.setPosition(position);
+        user.setValidation(validation);
     }
     
     public User checkLogin(String username, String password)

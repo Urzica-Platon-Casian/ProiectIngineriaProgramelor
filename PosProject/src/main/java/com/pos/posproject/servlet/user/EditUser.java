@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.posproject.servlet.user;
 
 import com.pos.posproject.common.UserDetails;
@@ -53,34 +49,32 @@ public class EditUser extends HttpServlet {
         UserDetails user = userBean.findById(userId);
         request.setAttribute("user", user);
         List<String> roles = new ArrayList<>();
-        for (UserRoles userRole : UserRoles.values())
-        {
+        for (UserRoles userRole : UserRoles.values()) {
             roles.add(userRole.name());
         }
         request.setAttribute("roles", roles);
         request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
-
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Boolean validationBool = null;
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String position = request.getParameter("position");
         String username = request.getParameter("username");
+        String validation = request.getParameter("validation");
         Integer userId = Integer.parseInt(request.getParameter("user_id"));
 
-        //userBean.update(userId,firstName, lastName,position,username);
+        if ("INVALID".equals(validation)) {
+            validationBool = false;
+        } else if ("VALID".equals(validation)) {
+            validationBool = true;
+        }
+
+        userBean.updateUser(userId, firstName, lastName, username, position, validationBool);
         response.sendRedirect(request.getContextPath() + "/Users");
     }
 
