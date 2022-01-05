@@ -6,3 +6,10 @@
 /PosProject/derby.properties
 derby.log
 derby.properties
+*.log
+*.log
+*.log
+PosProject/hs_err_pid2028.log
+PosProject/hs_err_pid2028.log
+PosProject/hs_err_pid2028.log
+PosProject/hs_err_pid9516.log

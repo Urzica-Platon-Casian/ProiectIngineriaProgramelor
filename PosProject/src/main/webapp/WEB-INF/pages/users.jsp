@@ -26,10 +26,10 @@
                 </div>
                 
                 <div class="col-md-2">
-                    ${user.first_name}
+                    ${user.firstName}
                 </div>
                 <div class="col-md-2">
-                    ${user.last_name}
+                    ${user.lastName}
                 </div>
 
                 
@@ -47,8 +47,5 @@
         </c:forEach>
 
     </form>
-   
-    <c:forEach var="username" items="${invoices}" varStatus="status">
-        ${username}
-    </c:forEach>
+
 </t:pageTemplate>

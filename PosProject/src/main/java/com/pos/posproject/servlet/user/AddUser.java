@@ -1,17 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.pos.posproject.servlet.user;
 
 import com.pos.posproject.ejb.UserBean;
+import com.pos.posproject.enums.UserRoles;
 import com.pos.posproject.util.PasswordUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,40 +23,18 @@ public class AddUser extends HttpServlet {
       @Inject
     UserBean userBean;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
- 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {    
+        List<String> roles = new ArrayList<>();
+        for (UserRoles user : UserRoles.values())
+        {
+            roles.add(user.name());
+        }
+        request.setAttribute("roles", roles);
         request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request,response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,19 +43,18 @@ public class AddUser extends HttpServlet {
         String last_name=request.getParameter("last_name");
         String password = request.getParameter("password");
         String position = request.getParameter("position");
-        
         String passwordSha256=PasswordUtil.convertToSha256(password);
-        
-        userBean.createUser(username, first_name,last_name, passwordSha256, position);
-        
+        if("ADMIN".equals(position) || "DG".equals(position))
+        {
+            userBean.createUser(username, first_name,last_name, passwordSha256, position , true);
+        }
+        else if("CASHIER".equals(position))
+        {
+            userBean.createUser(username, first_name,last_name, passwordSha256, position, false);
+        }
         response.sendRedirect(request.getContextPath()+"/Users");
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

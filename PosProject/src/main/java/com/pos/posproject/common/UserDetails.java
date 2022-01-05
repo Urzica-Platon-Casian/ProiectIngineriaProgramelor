@@ -4,6 +4,8 @@
  */
 package com.pos.posproject.common;
 
+import com.pos.posproject.enums.UserRoles;
+
 /**
  *
  * @author stupa
@@ -11,41 +13,43 @@ package com.pos.posproject.common;
 public class UserDetails implements java.io.Serializable {
 
     private Integer id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String username;
     private String position;
+    private Boolean validation;
 
-    public UserDetails(Integer id, String username, String first_name,String last_name, String position) {
+    public UserDetails(Integer id, String firstName, String lastName, String username, String position, Boolean validation) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
-        this.first_name=first_name;
-        this.last_name=last_name;
         this.position = position;
-
+        this.validation = validation;
     }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-    
 
     public Integer getId() {
         return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getUsername() {
         return username;
     }
 
-   
-
     public String getPosition() {
         return position;
+    }
+
+    public Boolean getValidation() {
+        return validation;
     }
 
 }
