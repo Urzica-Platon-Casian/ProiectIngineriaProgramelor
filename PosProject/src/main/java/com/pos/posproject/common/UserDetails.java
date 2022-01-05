@@ -17,13 +17,19 @@ public class UserDetails implements java.io.Serializable {
     private String lastName;
     private String username;
     private String position;
+    private Boolean validation;
 
-    public UserDetails(Integer id, String firstName, String lastName, String username, String position) {
+    public UserDetails(Integer id, String firstName, String lastName, String username, String position, Boolean validation) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.position = position;
+        this.validation = validation;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -34,19 +40,16 @@ public class UserDetails implements java.io.Serializable {
         return lastName;
     }
 
-    
-    
-    
-
-    public Integer getId() {
-        return id;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public String getPosition() {
         return position;
-    }    
+    }
+
+    public Boolean getValidation() {
+        return validation;
+    }
+
 }

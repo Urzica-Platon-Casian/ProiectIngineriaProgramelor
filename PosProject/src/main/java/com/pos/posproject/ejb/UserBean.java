@@ -31,7 +31,7 @@ public class UserBean {
     
     public UserDetails findById(Integer userId){
         User user=em.find(User.class, userId);
-        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getPosition(),user.getUsername());
+        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
     }
 
     public void createUser(String username, String first_name, String last_name, String passwordSha256, String position, Boolean validation) {
@@ -48,7 +48,7 @@ public class UserBean {
     public UserDetails findUserById(Integer userId) {
         LOG.info("findUserById");
         User user = em.find(User.class, userId);
-        return new UserDetails(user.getId(), user.getUsername(), user.getFirstname(), user.getLastname(), user.getPosition());
+        return new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
     }
 
     public List<UserDetails> getAllUsers() {
@@ -65,12 +65,7 @@ public class UserBean {
     private List<UserDetails> copyUsersToDetails(List<User> users) {
         List<UserDetails> detailsList = new ArrayList<>();
         for (User user : users) {
-            UserDetails userDetails = new UserDetails(user.getId(),
-                    
-                    user.getFirstname(),
-                    user.getLastname(),
-                    user.getPosition(),
-                    user.getUsername());
+            UserDetails userDetails = new UserDetails(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPosition(), user.getValidation());
             detailsList.add(userDetails);
         }
         return detailsList;
