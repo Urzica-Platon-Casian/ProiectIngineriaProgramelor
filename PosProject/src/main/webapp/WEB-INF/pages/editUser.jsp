@@ -43,7 +43,6 @@
             <div class="col-md-6 mb-3">
                 <label for="position">Position</label>
                 <select class="custom-select d-block w-100" id="position" name="position" required>
-                    <option value="">Choose...</option>
                     <c:forEach items="${roles}" var="item" varStatus="status">
                         <option ${user.position eq item ? 'selected' : ' '}> ${item} </option>
                     </c:forEach>
@@ -58,7 +57,6 @@
             <div class="col-md-6 mb-3">
                 <label for="last_name">Validation</label>
                 <select class="custom-select d-block w-100" id="validation" name="validation" required>
-                    <option value="">Choose...</option>
                     <c:choose>
                         <c:when test="${user.validation eq true}">
                             <option selected>VALID</option>

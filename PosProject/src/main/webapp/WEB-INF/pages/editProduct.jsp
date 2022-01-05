@@ -71,7 +71,6 @@
             <div class="col-md-6 mb-3">
                 <label for="productCatalog_id"> Catalog </label>
                 <select class="form-select" id="productCatalog_id" name="productCatalog_id" required>
-                    <option value=""> Choose... </option> 
                     <c:forEach var="productCatalog" items="${productCatalogs}" varStatus="status">
                         <option value="${productCatalog.id}" ${product.productCatalogName eq productCatalog.productCatalogName  ? 'selected':' '}>${productCatalog.productCatalogName} </option>
                     </c:forEach>

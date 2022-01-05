@@ -46,7 +46,6 @@
             <div class="col-md-6 mb-3">
                 <label for="position">Position</label>
                 <select class="custom-select d-block w-100" id="position" name="position" required>
-                    <option value="">Choose...</option>
                     <c:forEach items="${roles}" var="item" varStatus="status">
                         <option> ${item} </option>
                     </c:forEach>
