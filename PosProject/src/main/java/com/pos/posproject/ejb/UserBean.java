@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -74,5 +75,28 @@ public class UserBean {
             User user = em.find(User.class, id);
             em.remove(user);
         }
+    }
+    
+    public User checkLogin(String username, String password)
+    {
+        User currentUser = null;
+        try {
+            TypedQuery query = em.createQuery(
+                    "SELECT u FROM User u where u.username = :username and u.password = :password", User.class)
+                    .setParameter("username", username)
+                    .setParameter("password", password);
+            List<User> users = query.getResultList();
+            if(users.size()== 1)
+            {
+                for(User user : users)
+                {
+                    if(user.getValidation() == true)
+                        return currentUser;
+                }
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+        return currentUser;
     }
 }
