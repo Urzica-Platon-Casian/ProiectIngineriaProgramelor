@@ -44,7 +44,6 @@ public class EditUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<UserDetails> users = userBean.getAllUsers();
         int userId = Integer.parseInt(request.getParameter("id"));
         UserDetails user = userBean.findById(userId);
         request.setAttribute("user", user);
@@ -60,21 +59,13 @@ public class EditUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Boolean validationBool = null;
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String position = request.getParameter("position");
         String username = request.getParameter("username");
-        String validation = request.getParameter("validation");
         Integer userId = Integer.parseInt(request.getParameter("user_id"));
-
-        if ("INVALID".equals(validation)) {
-            validationBool = false;
-        } else if ("VALID".equals(validation)) {
-            validationBool = true;
-        }
-
-        userBean.updateUser(userId, firstName, lastName, username, position, validationBool);
+        
+        userBean.updateUser(userId, firstName, lastName, username, position);
         response.sendRedirect(request.getContextPath() + "/Users");
     }
 
