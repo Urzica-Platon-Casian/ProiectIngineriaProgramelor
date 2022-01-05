@@ -4,6 +4,8 @@
  */
 package com.pos.posproject.common;
 
+import com.pos.posproject.enums.UserRoles;
+
 /**
  *
  * @author stupa
@@ -22,7 +24,6 @@ public class UserDetails implements java.io.Serializable {
         this.first_name=first_name;
         this.last_name=last_name;
         this.position = position;
-
     }
 
     public String getFirst_name() {
@@ -42,10 +43,7 @@ public class UserDetails implements java.io.Serializable {
         return username;
     }
 
-   
-
     public String getPosition() {
         return position;
-    }
-
+    }    
 }

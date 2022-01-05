@@ -1,17 +1,9 @@
 <%-- 
     Document   : login
-<<<<<<< Updated upstream
     Created on : 02.01.2022, 00:36:13
     Author     : stupa
 --%>
 
-
-=======
-    Created on : 01.01.2022, 21:18:02
-    Author     : stupa
---%>
-
->>>>>>> Stashed changes
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -31,7 +23,6 @@
         <hr class="my-4">
         <button class="btn  btn-lg btn-primary btn-block" type="submit"> Sign in </button>
     </form>
-<<<<<<< Updated upstream
 </t:pageTemplate>
 
 
