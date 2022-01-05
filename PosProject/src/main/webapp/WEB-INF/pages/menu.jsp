@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : menu
     Created on : Dec 27, 2021, 10:09:00 PM
     Author     : upcas
@@ -15,7 +15,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/productCatalogs.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/ProductCatalogs">Product Catalogs</a>
@@ -36,10 +35,21 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/cashiers.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/Cashiers">Cashiers</a>
+                </li>
             </ul>
-            <ul class="navbar-nav d-flex">
-                <li class="navbar-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <c:choose>
+                        <c:when test="${pageContext.request.getRemoteUser()==null}">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
+                        </c:otherwise>
+                    </c:choose>
                 </li>
             </ul>
         </div>

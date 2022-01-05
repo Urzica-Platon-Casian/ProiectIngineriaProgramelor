@@ -1,11 +1,14 @@
-package com.pos.posproject.servlet.user;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.pos.posproject.servlet.cashier;
 
 import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.UserBean;
-import com.pos.posproject.enums.UserRoles;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author stupa
+ * @author Rori
  */
-@WebServlet(name = "EditUser", urlPatterns = {"/Users/Update"})
-public class EditUser extends HttpServlet {
+@WebServlet(name = "ValidateCashiers", urlPatterns = {"/Cashier/Validate"})
+public class ValidateCashiers extends HttpServlet {
 
     @Inject
     UserBean userBean;
@@ -32,10 +35,10 @@ public class EditUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditUser</title>");
+            out.println("<title>Servlet ValidateCashiers</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditUser at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ValidateCashiers at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -47,26 +50,24 @@ public class EditUser extends HttpServlet {
         int userId = Integer.parseInt(request.getParameter("id"));
         UserDetails user = userBean.findById(userId);
         request.setAttribute("user", user);
-        List<String> roles = new ArrayList<>();
-        for (UserRoles userRole : UserRoles.values()) {
-            roles.add(userRole.name());
-        }
-        request.setAttribute("roles", roles);
-        request.getRequestDispatcher("/WEB-INF/pages/editUser.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/cashier/changeStatus.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String firstName = request.getParameter("first_name");
-        String lastName = request.getParameter("last_name");
-        String position = request.getParameter("position");
-        String username = request.getParameter("username");
+        Boolean validationBool = null;
+        String validation = request.getParameter("validation");
         Integer userId = Integer.parseInt(request.getParameter("user_id"));
-        
-        userBean.updateUser(userId, firstName, lastName, username, position);
-        response.sendRedirect(request.getContextPath() + "/Users");
+
+        if ("INVALID".equals(validation)) {
+            validationBool = false;
+        } else if ("VALID".equals(validation)) {
+            validationBool = true;
+        }
+
+        userBean.updateCashierStatus(userId, validationBool);
+        response.sendRedirect(request.getContextPath() + "/Cashiers");
     }
 
     @Override

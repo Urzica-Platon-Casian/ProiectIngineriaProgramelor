@@ -52,28 +52,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="last_name">Validation</label>
-                <select class="custom-select d-block w-100" id="validation" name="validation" required>
-                    <c:choose>
-                        <c:when test="${user.validation eq true}">
-                            <option selected>VALID</option>
-                            <option>INVALID</option>
-                        </c:when>
-                        <c:when test="${user.validation eq false}">
-                            <option>VALID</option>
-                            <option selected>INVALID</option>
-                        </c:when>
-                    </c:choose>
-                </select>    
-                <div class="invalid-feedback">
-                    Validation is required.
-                </div>
-            </div>
-        </div>
-
         <hr class="my-4">
         <input type="hidden" name="user_id" value="${user.id}" />
         <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>

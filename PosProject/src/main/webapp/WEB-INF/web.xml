@@ -10,7 +10,7 @@
     </session-config>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>POSrealm</realm-name>
+        <realm-name>realmPOS</realm-name>
         <form-login-config>
             <form-login-page>/Login</form-login-page>
             <form-error-page>/Login</form-error-page>
