@@ -43,6 +43,10 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/cashiers.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Cashiers">Cashiers</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/payByCash.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/PayByCash">Pay By Cash</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
