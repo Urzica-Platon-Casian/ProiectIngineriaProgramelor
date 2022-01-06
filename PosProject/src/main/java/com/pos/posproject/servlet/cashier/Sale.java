@@ -30,13 +30,12 @@ public class Sale extends HttpServlet {
 
     @Inject
     private SaleLineItemBean saleLineItemBean;
-    
+
     @Inject
     private LineIteamBean lineItemBean;
-    
+
     @Inject
     private SealeBean saleBean;
-    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,8 +59,7 @@ public class Sale extends HttpServlet {
         Integer saleId = Integer.parseInt(request.getParameter("id"));
         List<ProductDetails> products = productBean.getAllProducts();
         Double total = saleBean.getTotal(saleId);
-        if(!saleLineItemBean.getSaleLineItems().isEmpty())
-        {
+        if (!saleLineItemBean.getSaleLineItems().isEmpty()) {
             Collection<LineItemDetails> lineItemsDetails = saleLineItemBean.getSaleLineItems();
             request.setAttribute("saleItems", lineItemsDetails);
         }
@@ -78,11 +76,14 @@ public class Sale extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int saleId = Integer.parseInt(request.getParameter("saleId"));
         ProductDetails product = productBean.findById(productId);
-        lineItemBean.createLineItem(quantity, product.getId(), saleId);
-        SaleDetails sale = saleBean.findById(saleId);
-        saleLineItemBean.getSaleLineItems().clear();
-        saleLineItemBean.getSaleLineItems().addAll(sale.getLineItems());
-        
+        int quantity2 = product.getQuantity();
+        if (quantity2 >= quantity) {
+            lineItemBean.createLineItem(quantity, product.getId(), saleId);
+            SaleDetails sale = saleBean.findById(saleId);
+            saleLineItemBean.getSaleLineItems().clear();
+            saleLineItemBean.getSaleLineItems().addAll(sale.getLineItems());
+        }
+
         response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);
     }
 

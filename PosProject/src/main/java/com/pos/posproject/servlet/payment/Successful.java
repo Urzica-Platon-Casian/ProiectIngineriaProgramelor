@@ -68,10 +68,6 @@ public class Successful extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int saleId = Integer.parseInt(request.getParameter("saleId"));
-        saleBean.updateSaleStatus(saleId);
-        response.sendRedirect(request.getContextPath() + "/Succesful?id=" + saleId);
-
     }
 
     @Override
