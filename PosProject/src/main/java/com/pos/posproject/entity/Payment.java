@@ -8,12 +8,16 @@ package com.pos.posproject.entity;
 import com.pos.posproject.enums.PaymentMethods;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -28,10 +32,21 @@ public class Payment implements Serializable {
     private Integer id;
     
     private Double amount;
+    private Double total;
     private Date date;
     
     @Enumerated(EnumType.ORDINAL)
     private PaymentMethods method;
+    
+    @OneToOne
+    @JoinColumn(name = "SALE_KEY")
+    Sale sale;
+    
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    PayByCash payByCash;
+    
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    PayByCard payByCard;
 
     public Integer getId() {
         return id;
@@ -49,6 +64,14 @@ public class Payment implements Serializable {
         this.amount = amount;
     }
 
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -63,6 +86,30 @@ public class Payment implements Serializable {
 
     public void setMethod(PaymentMethods method) {
         this.method = method;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    public PayByCash getPayByCash() {
+        return payByCash;
+    }
+
+    public void setPayByCash(PayByCash payByCash) {
+        this.payByCash = payByCash;
+    }
+
+    public PayByCard getPayByCard() {
+        return payByCard;
+    }
+
+    public void setPayByCard(PayByCard payByCard) {
+        this.payByCard = payByCard;
     }
 
     @Override

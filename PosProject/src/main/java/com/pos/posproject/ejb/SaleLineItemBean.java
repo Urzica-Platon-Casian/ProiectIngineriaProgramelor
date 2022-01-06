@@ -15,6 +15,8 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class SaleLineItemBean {
     
+    String change;
+    
     Set<LineItemDetails> saleLineItems = new HashSet<LineItemDetails>();
 
     public Set<LineItemDetails> getSaleLineItems() {
@@ -23,5 +25,13 @@ public class SaleLineItemBean {
 
     public void setSaleLineItems(Set<LineItemDetails> saleLineItems) {
         this.saleLineItems = saleLineItems;
+    }
+
+    public String getChange() {
+        return change;
+    }
+
+    public void setChange(String change) {
+        this.change = change;
     }
 }
