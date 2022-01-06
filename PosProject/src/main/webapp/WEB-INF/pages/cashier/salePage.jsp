@@ -29,75 +29,69 @@
 </style>
 
 <t:pageTemplate pageTitle="Sale Page">
-    <form method="POST" action="${pageContext.request.contextPath}/Sale">
-        <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Sale Page</h1>
-        <div class="split left">
-            <div>
-                <div class="row" style="padding: 10px; text-align: center">
-                    <div class="col-md-4">
-                        <b>Added Products:</b>
-                    </div>
-                    <div class="col-md-2">
-                        <b>Total:</b>
-                    </div>
+    <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Sale Page</h1>
+    <div class="split left">
+        <div>
+            <div class="row" style="padding: 10px; text-align: center">
+                <div class="col-md-4">
+                    <b>Total:</b> ${total} euro
                 </div>
             </div>
-            <div>
-                <div class="row" style="padding: 10px; text-align: center">
-                    <div class="col-md-4">
-                        <b>Product name</b>
-                    </div>
-                    <div class="col-md-2">
-                        <b>Quantity</b>
-                    </div>
-                    <div class="col-md-2">
-                        <b>Price</b>
-                    </div>
+        </div>
+        <div>
+            <div class="row" style="padding: 10px; text-align: center">
+                <div class="col-md-4">
+                    <b>Product name</b>
+                </div>
+                <div class="col-md-2">
+                    <b>Quantity</b>
+                </div>
+                <div class="col-md-2">
+                    <b>Price</b>
                 </div>
             </div>
-            <c:forEach var="product" items="${products}" varStatus="status">
+        </div>
+        <c:forEach var="saleItem" items="${saleItems}" varStatus="status">
+            <form method="POST" action="${pageContext.request.contextPath}/DeleteProductFromSale">
                 <div>
                     <div class="row" style="padding: 10px; text-align: center">
                         <div class="col-md-4">
-                            ${product.name}
+                            ${saleItem.productName}
                         </div>
                         <div class="col-md-2">
-                            ${product.quantity}
+                            ${saleItem.quantity}
                         </div> 
                         <div class="col-md-2">
-                            ${product.price}
+                            ${saleItem.price}
                         </div>
+                        <input type="hidden" name="saleItemId" value="${saleItem.id}"/>
+                        <input type="hidden" name="saleId" value="${saleId}"/>
                         <div class="col-md-3">
-                            <a class="btn btn-primary " href="${pageContext.request.contextPath}/DelSmth" role="button">Delete Product</a>
+                            <button class="btn btn-primary" type="submit">Delete Product</button>
                         </div>
                     </div>
                 </div>
-            </c:forEach>
-            <div style="width: 20%; padding: 10px">
-                <label for="paymentMethod">Payment method</label>
-                <select class="custom-select d-block w-100" id="paymentMethod" name="paymentMethod" required>
-                    <option value="">Choose...</option>
-                    <option value="CASH">Cash</option>
-                    <option value="CARD">Card</option>
-                </select>
+            </form>
+        </c:forEach>
+        <div style="padding-left: 100px">
+            <div class="row" style="padding: 10px">
+                <div style="display: flex">
+                    <div class="col-md-6"><a class="btn btn-danger" href="${pageContext.request.contextPath}/PayByCash?id=${saleId}" role="button">Pay By Cash</a></div>
+                    <div class="col-md-6"><a class="btn btn-danger" href="${pageContext.request.contextPath}/PayByCard?id=${saleId}" role="button">Pay By Card</a></div>
+                </div>
             </div>
         </div>
-        <div class="split right">
-            <div>
-                <div class="row" style="padding: 10px; text-align: center">
-                    <div class="col-md-4">
-                        <b>Number of products:</b>
-                    </div>
+    </div>
+    <div class="split right">
+        <div>
+            <div class="row" style="padding: 10px; text-align: center">
+                <div class="col-md-4">
+                    <b style="padding-right: 25px">All Products</b>
                 </div>
             </div>
-            <div>
-                <div class="row" style="padding: 10px; text-align: center">
-                    <div class="col-md-4">
-                        <b style="padding-right: 25px">Products Here</b>
-                    </div>
-                </div>
-            </div>
-            <c:forEach var="product" items="${products}" varStatus="status">
+        </div>
+        <c:forEach var="product" items="${products}" varStatus="status">
+            <form method="POST" action="${pageContext.request.contextPath}/Sale">
                 <div>
                     <div class="row" style="padding: 10px; text-align: center">
                         <div class="col-md-4">
@@ -105,14 +99,16 @@
                         </div>
                         <div class="col-md-2">
                             <label>Quantity</label>
-                            <input type="text" name="productsQuantity" style="width: 35px" value="${product.quantity}"/>
+                            <input type="text" name="quantity" style="width: 35px" value=""/>
                         </div>
                         <div class="col-md-3">
-                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/DeleteProdFromSale" role="button">Add</a>
+                            <input type="hidden" name="product_id" value="${product.id}"/>
+                            <input type="hidden" name="saleId" value="${saleId}"/>
+                            <button class="btn btn-primary" type="submit">Add</button>
                         </div>                        
                     </div>
                 </div>
-            </c:forEach>            
-        </div>
-    </form>
+            </form>
+        </c:forEach> 
+    </div>
 </t:pageTemplate>

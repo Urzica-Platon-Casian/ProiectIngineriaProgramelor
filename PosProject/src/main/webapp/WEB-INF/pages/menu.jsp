@@ -16,10 +16,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <c:if test="${pageContext.request.isUserInRole('AdminRole')}">
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/users.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/Users">Users</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/users.jsp' ? 'active' : ''}" 
+                           href="${pageContext.request.contextPath}/Users">Users</a>
+                    </li>
                 </c:if>
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/productCatalogs.jsp' ? 'active' : ''}" 
@@ -34,10 +34,6 @@
                        href="${pageContext.request.contextPath}/Actions">Actions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/salePage.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/Sale">Sale</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
@@ -45,26 +41,23 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/cashiers.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Cashiers">Cashiers</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/payByCash.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/PayByCash">Pay By Cash</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/payByCard.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/PayByCard">Pay By Card</a>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <c:choose>
-                        <c:when test="${pageContext.request.getRemoteUser()==null}">
+                <c:choose>
+                    <c:when test="${pageContext.request.getRemoteUser()==null}">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/Login"> Login </a>
-                        </c:when>
-                        <c:otherwise>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-link">
+                            Welcome to POS
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/Logout"> Logout </a>
-                        </c:otherwise>
-                    </c:choose>
-                </li>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>

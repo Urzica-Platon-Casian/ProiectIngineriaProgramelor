@@ -4,6 +4,7 @@ import com.pos.posproject.common.ProductDetails;
 import com.pos.posproject.entity.Product;
 import com.pos.posproject.entity.ProductCatalog;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
@@ -115,5 +116,13 @@ public class ProductBean {
             ProductCatalog.getProducts().remove(product);
             em.remove(product);
         }
+    }
+    
+    public Collection<String> findProductName(Collection<Integer> productIds) {
+        LOG.info("findProductName");
+        List<String> productNames = (List<String>) em.createQuery("SELECT u.name FROM Product u WHERE u.id IN ?1")
+                .setParameter(1, productIds)
+                .getResultList();
+        return productNames;
     }
 }

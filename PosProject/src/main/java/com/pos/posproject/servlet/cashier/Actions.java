@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pos.posproject.servlet.cashier;
 
+import com.pos.posproject.common.UserDetails;
+import com.pos.posproject.ejb.SealeBean;
+import com.pos.posproject.ejb.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Actions", urlPatterns = {"/Actions"})
 public class Actions extends HttpServlet {
 
+    @Inject
+    SealeBean saleBean;
+
+    @Inject
+    UserBean userBean;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -28,7 +33,7 @@ public class Actions extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CashierActions</title>");            
+            out.println("<title>Servlet CashierActions</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CashierActions at " + request.getContextPath() + "</h1>");
@@ -46,7 +51,10 @@ public class Actions extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getUserPrincipal().getName();
+        UserDetails user = userBean.findUserByUsername(username);
+        Integer saleId = saleBean.createSale(user.getId());
+        response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);
     }
 
     @Override

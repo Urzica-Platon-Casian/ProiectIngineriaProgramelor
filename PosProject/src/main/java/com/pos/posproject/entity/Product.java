@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pos.posproject.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,6 +37,10 @@ public class Product implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCTCATALOGS_KEY")
     private ProductCatalog productCatalog;
+    
+    @JsonbTransient
+    @OneToMany(mappedBy = "product")
+    private Collection<LineItem> lineItem;
 
     public ProductCatalog getProductCatalog() {
         return productCatalog;
@@ -102,6 +104,14 @@ public class Product implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Collection<LineItem> getLineItem() {
+        return lineItem;
+    }
+
+    public void setLineItem(Collection<LineItem> lineItem) {
+        this.lineItem = lineItem;
     }
 
     @Override
