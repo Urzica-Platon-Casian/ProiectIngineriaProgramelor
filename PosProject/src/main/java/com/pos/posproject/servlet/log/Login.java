@@ -1,4 +1,5 @@
 package com.pos.posproject.servlet.log;
+import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.UserBean;
 import com.pos.posproject.entity.User;
 import com.pos.posproject.util.PasswordUtil;
@@ -48,30 +49,30 @@ public class Login extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("j_username");
-        String password = request.getParameter("j_password");
-        PasswordUtil passwordUtil = null;
-        String shaPassword = passwordUtil.convertToSha256(password);
-        User user;
-        try{
-            user = userBean.checkLogin(username, shaPassword);
-            if(user != null)
-            {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-            }
-            else
-            {
-                String message = "Somthing went wrong. You don`t have a valid accont, or you have an invalid email or password";
-                request.setAttribute("message",message);
-                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
-            }            
-        }
-        catch (IOException | ServletException ex)
-        {
-            throw new ServletException(ex);
-        }      
+//        String username = request.getParameter("j_username");
+//        String password = request.getParameter("j_password");
+//        PasswordUtil passwordUtil = null;
+//        String shaPassword = passwordUtil.convertToSha256(password);
+//        User user;
+//        try{
+//            user = userBean.checkLogin(username, shaPassword);
+//            if(user != null)
+//            {
+//                HttpSession session = request.getSession();
+//                session.setAttribute("user", user);
+//                request.getRequestDispatcher("/index.jsp").forward(request, response);
+//            }
+//            else
+//            {
+//                String message = "Somthing went wrong. You don`t have a valid accont, or you have an invalid email or password";
+//                request.setAttribute("message",message);
+//                request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+//            }            
+//        }
+//        catch (IOException | ServletException ex)
+//        {
+//            throw new ServletException(ex);
+//        }      
     }
 
     @Override
