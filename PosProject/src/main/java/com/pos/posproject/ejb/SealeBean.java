@@ -91,8 +91,6 @@ public class SealeBean {
             List<LineItemDetails> lineItemsDetails = new ArrayList<>();
             TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.sale.id = :id", LineItem.class)
                     .setParameter("id", saleId);
-            //Sale sale = em.find(Sale.class, saleId);
-            //Integer cashierId = sale.getCashierId();
             List<LineItem> lineItems = typedQuery.getResultList();
             for (LineItem lineItem : lineItems) {
                 LineItemDetails lineitemDetails = new LineItemDetails(lineItem.getId(), lineItem.getQuantity(),

@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author upcas
  */
-@WebServlet(name = "Succesful", urlPatterns = {"/Succesful"})
-public class Succesful extends HttpServlet {
+@WebServlet(name = "Successful", urlPatterns = {"/Successful"})
+public class Successful extends HttpServlet {
 
     @Inject
     SealeBean saleBean;
@@ -53,10 +53,12 @@ public class Succesful extends HttpServlet {
         int saleId = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("saleId", saleId);
         SaleDetails saleDetails = saleBean.getSaleDetails(saleId);
+        Double aaa = saleBean.getTotal(saleId);
         List<LineItemDetails> itemDetails = saleBean.getLineItem(saleId);
         request.setAttribute("saleDetails", saleDetails);
         request.setAttribute("itemDetails", itemDetails);
-        request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/succesful.jsp").forward(request, response);
+        request.setAttribute("aaa", aaa);        
+        request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/successful.jsp").forward(request, response);
     }
 
     @Override
