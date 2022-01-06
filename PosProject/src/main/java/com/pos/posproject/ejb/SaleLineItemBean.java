@@ -13,8 +13,7 @@ import javax.enterprise.context.SessionScoped;
  */
 @Stateful
 @SessionScoped
-public class SaleLineItemBean {
-    
+public class SaleLineItemBean {    
     Set<LineItemDetails> saleLineItems = new HashSet<LineItemDetails>();
 
     public Set<LineItemDetails> getSaleLineItems() {
