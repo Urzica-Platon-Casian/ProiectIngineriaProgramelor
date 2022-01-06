@@ -3,6 +3,7 @@ package com.pos.posproject.servlet.payment;
 import com.pos.posproject.common.PaymentDetails;
 import com.pos.posproject.ejb.PayByCashBean;
 import com.pos.posproject.ejb.PaymentBean;
+import com.pos.posproject.ejb.SaleLineItemBean;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.enums.PaymentMethods;
 import java.io.IOException;
@@ -29,6 +30,9 @@ public class PayByCash extends HttpServlet {
 
     @Inject
     private SealeBean saleBean;
+    
+    @Inject
+    private SaleLineItemBean saleLineItemBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -78,6 +82,8 @@ public class PayByCash extends HttpServlet {
         PaymentDetails paymentDetails = paymentBean.findById(paymentId);
         payByCashBean.createPayByCash(paymentDetails.getAmount()-paymentDetails.getTotal(), paymentId); 
         saleBean.updateSaleStatus(saleId);
+        saleLineItemBean.getSaleLineItems().clear();
+        saleBean.updateStockOfProducts(saleId);
         response.sendRedirect(request.getContextPath() + "/PayByCash?id=" + saleId);
     }
 

@@ -97,6 +97,28 @@ public class SealeBean {
         }
     }
     
+    public void updateStockOfProducts(Integer saleId) {
+        LOG.info("updateStockOfProducts");
+         try {
+            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.sale.id = :id", LineItem.class)
+                    .setParameter("id", saleId);
+            TypedQuery<Product> productsQuery = em.createQuery("SELECT e FROM Product e", Product.class);
+            List<LineItem> lineItems = typedQuery.getResultList();
+            List<Product> products = productsQuery.getResultList();
+            for (LineItem lineItem : lineItems) {
+                for(Product product : products)
+                {
+                    if(lineItem.getProduct().getId() == product.getId()) {
+                        Integer quantity = product.getQuantity();
+                        product.setQuantity(quantity-lineItem.getQuantity());
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+    
     public void updateSaleStatus(Integer saleId) {
         LOG.info("updateSaleStatus");
         Sale sale = em.find(Sale.class, saleId);
