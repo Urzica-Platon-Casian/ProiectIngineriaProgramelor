@@ -28,9 +28,6 @@ public class PayByCash extends HttpServlet {
     private PaymentBean paymentBean;
 
     @Inject
-    private SaleLineItemBean saleLineItemBean;
-
-    @Inject
     private PayByCashBean payByCashBean;
 
     @Inject

@@ -37,24 +37,4 @@ public class PayByCashBean {
 
         em.persist(payByCash);
     }
-
-    public Double getChange(Integer saleId) {
-        Double change = 0.0;
-        try {
-            Sale sale = em.find(Sale.class, saleId);
-            Integer paymentId = sale.getPayment().getId();
-            TypedQuery<PayByCash> typedQuery = em.createQuery("SELECT c FROM PayByCash c where c.payment.id = :id", PayByCash.class)
-                    .setParameter("id", paymentId);
-            List<PayByCash> payByCashPayment = typedQuery.getResultList();
-            if (payByCashPayment.size() == 1) {
-                for (PayByCash item : payByCashPayment) {
-                    return change = item.getChange();
-                }
-            }
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-
-        return change;
-    }
 }

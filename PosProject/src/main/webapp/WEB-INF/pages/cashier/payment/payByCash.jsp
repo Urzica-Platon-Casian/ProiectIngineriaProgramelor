@@ -32,8 +32,7 @@
                     <c:otherwise>
                         <button class="btn btn-primary btn-lg" type="submit">Get Change</button>
                     </c:otherwise>
-                </c:choose>
-                    
+                </c:choose>      
                 </div>
             </div>
             <div class="row" style="padding-left: 500px; padding-top: 10px">
