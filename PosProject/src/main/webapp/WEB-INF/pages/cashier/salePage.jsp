@@ -34,9 +34,6 @@
         <div>
             <div class="row" style="padding: 10px; text-align: center">
                 <div class="col-md-4">
-                    <b>Added Products:</b>
-                </div>
-                <div class="col-md-2">
                     <b>Total:</b> ${total} euro
                 </div>
             </div>
@@ -55,40 +52,37 @@
             </div>
         </div>
         <c:forEach var="saleItem" items="${saleItems}" varStatus="status">
-            <div>
-                <div class="row" style="padding: 10px; text-align: center">
-                    <div class="col-md-4">
-                        ${saleItem.productName}
-                    </div>
-                    <div class="col-md-2">
-                        ${saleItem.quantity}
-                    </div> 
-                    <div class="col-md-2">
-                        ${saleItem.price}
-                    </div>
-                    <div class="col-md-3">
-                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/DelSmth" role="button">Delete Product</a>
+            <form method="POST" action="${pageContext.request.contextPath}/DeleteProductFromSale">
+                <div>
+                    <div class="row" style="padding: 10px; text-align: center">
+                        <div class="col-md-4">
+                            ${saleItem.productName}
+                        </div>
+                        <div class="col-md-2">
+                            ${saleItem.quantity}
+                        </div> 
+                        <div class="col-md-2">
+                            ${saleItem.price}
+                        </div>
+                        <input type="hidden" name="saleItemId" value="${saleItem.id}"/>
+                        <input type="hidden" name="saleId" value="${saleId}"/>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary" type="submit">Delete Product</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </c:forEach>
         <div style="padding-left: 100px">
-            <div class="row" style="width: 20%; padding: 10px">
+            <div class="row" style="padding: 10px">
                 <div style="display: flex">
-                    <div class="col-md-10"><a class="btn btn-primary" href="${pageContext.request.contextPath}/PayByCash?id=${saleId}" role="button">Pay By Cash</a></div>
-                    <div class="col-md-10"><a class="btn btn-primary" href="${pageContext.request.contextPath}/PayByCard?id=${saleId}" role="button">Pay By Card</a></div>
+                    <div class="col-md-6"><a class="btn btn-danger" href="${pageContext.request.contextPath}/PayByCash?id=${saleId}" role="button">Pay By Cash</a></div>
+                    <div class="col-md-6"><a class="btn btn-danger" href="${pageContext.request.contextPath}/PayByCard?id=${saleId}" role="button">Pay By Card</a></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="split right">
-        <div>
-            <div class="row" style="padding: 10px; text-align: center">
-                <div class="col-md-4">
-                    <b>Number of products:</b>
-                </div>
-            </div>
-        </div>
         <div>
             <div class="row" style="padding: 10px; text-align: center">
                 <div class="col-md-4">
