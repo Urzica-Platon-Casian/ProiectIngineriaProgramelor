@@ -59,11 +59,14 @@ public class PayByCash extends HttpServlet {
         Integer saleId = Integer.parseInt(request.getParameter("id"));
         Double total = saleBean.getTotal(saleId);
         PaymentDetails paymentDetails = paymentBean.findBySaleId(saleId);
+        Boolean saleStatus = false;
         if(paymentDetails != null)
         {
+            saleStatus = saleBean.getStatus(saleId);
             request.setAttribute("amount", paymentDetails.getAmount());
             request.setAttribute("change", paymentDetails.getAmount()-paymentDetails.getTotal());
         }
+        request.setAttribute("status", saleStatus);
         request.setAttribute("saleId", saleId);
         request.setAttribute("total", total);
         
@@ -79,7 +82,8 @@ public class PayByCash extends HttpServlet {
         Integer paymentId = paymentBean.createPayment(saleId,total,Double.valueOf(amount),PaymentMethods.CASH);
         
         PaymentDetails paymentDetails = paymentBean.findById(paymentId);
-        payByCashBean.createPayByCash(paymentDetails.getAmount()-paymentDetails.getTotal(), paymentId);        
+        payByCashBean.createPayByCash(paymentDetails.getAmount()-paymentDetails.getTotal(), paymentId); 
+        saleBean.updateSaleStatus(saleId);
         response.sendRedirect(request.getContextPath() + "/PayByCash?id=" + saleId);
     }
 

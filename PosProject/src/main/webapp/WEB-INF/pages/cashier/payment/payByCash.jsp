@@ -25,7 +25,15 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-primary btn-lg" type="submit">Get Change</button>
+                    <c:choose>
+                    <c:when test="${status == true}">
+                        <button disabled class="btn btn-primary btn-lg" type="submit">Get Change</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-primary btn-lg" type="submit">Get Change</button>
+                    </c:otherwise>
+                </c:choose>
+                    
                 </div>
             </div>
             <div class="row" style="padding-left: 500px; padding-top: 10px">
