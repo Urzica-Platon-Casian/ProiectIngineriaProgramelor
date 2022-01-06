@@ -1,4 +1,5 @@
 package com.pos.posproject.servlet.log;
+
 import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.UserBean;
 import com.pos.posproject.entity.User;
@@ -18,11 +19,11 @@ import javax.servlet.http.HttpSession;
  * @author stupa
  */
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet{
-    
+public class Login extends HttpServlet {
+
     @Inject
     UserBean userBean;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,7 +32,7 @@ public class Login extends HttpServlet{
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
+            out.println("<title>Servlet Login</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
@@ -80,5 +81,4 @@ public class Login extends HttpServlet{
         return "Short description";
     }// </editor-fold>
 
-    
 }

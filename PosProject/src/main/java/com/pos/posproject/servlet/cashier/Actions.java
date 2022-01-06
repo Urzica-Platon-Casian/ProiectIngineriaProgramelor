@@ -21,10 +21,10 @@ public class Actions extends HttpServlet {
 
     @Inject
     SealeBean saleBean;
-    
+
     @Inject
     UserBean userBean;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,7 +33,7 @@ public class Actions extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CashierActions</title>");            
+            out.println("<title>Servlet CashierActions</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CashierActions at " + request.getContextPath() + "</h1>");
@@ -54,7 +54,7 @@ public class Actions extends HttpServlet {
         String username = request.getUserPrincipal().getName();
         UserDetails user = userBean.findUserByUsername(username);
         Integer saleId = saleBean.createSale(user.getId());
-        response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);  
+        response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);
     }
 
     @Override

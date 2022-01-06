@@ -16,10 +16,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <c:if test="${pageContext.request.isUserInRole('AdminRole')}">
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/users.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/Users">Users</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/users.jsp' ? 'active' : ''}" 
+                           href="${pageContext.request.contextPath}/Users">Users</a>
+                    </li>
                 </c:if>
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/productCatalogs.jsp' ? 'active' : ''}" 
@@ -43,16 +43,21 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <c:choose>
-                        <c:when test="${pageContext.request.getRemoteUser()==null}">
+                <c:choose>
+                    <c:when test="${pageContext.request.getRemoteUser()==null}">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/Login"> Login </a>
-                        </c:when>
-                        <c:otherwise>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-link">
+                            Welcome to POS
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/Logout"> Logout </a>
-                        </c:otherwise>
-                    </c:choose>
-                </li>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
