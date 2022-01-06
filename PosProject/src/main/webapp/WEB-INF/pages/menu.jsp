@@ -27,7 +27,7 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/users.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Users">Users</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/actions.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Actions">Actions</a>
                 </li>
@@ -53,16 +53,22 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <c:choose>
-                        <c:when test="${pageContext.request.getRemoteUser()==null}">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
-                        </c:otherwise>
-                    </c:choose>
+                <%
+                    if (session.getAttribute("user") == null) {%>
+                <li class="nav-item active">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
                 </li>
+                <%} %> 
+                <%
+                    if (session.getAttribute("user") != null) {%>
+                <li>
+                    <div class="nav-link">Welcome to POS</div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
+                </li>  
+                <%}
+                %>
             </ul>
         </div>
     </div>

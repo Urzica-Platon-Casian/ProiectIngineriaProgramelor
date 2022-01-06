@@ -1,4 +1,5 @@
 package com.pos.posproject.servlet.log;
+import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.UserBean;
 import com.pos.posproject.entity.User;
 import com.pos.posproject.util.PasswordUtil;
