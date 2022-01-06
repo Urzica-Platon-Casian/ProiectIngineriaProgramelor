@@ -1,11 +1,8 @@
 package com.pos.posproject.servlet.payment;
 
 import com.pos.posproject.common.PaymentDetails;
-import com.pos.posproject.ejb.LineIteamBean;
 import com.pos.posproject.ejb.PayByCashBean;
 import com.pos.posproject.ejb.PaymentBean;
-import com.pos.posproject.ejb.ProductBean;
-import com.pos.posproject.ejb.SaleLineItemBean;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.enums.PaymentMethods;
 import java.io.IOException;

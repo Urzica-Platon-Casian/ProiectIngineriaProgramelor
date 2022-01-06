@@ -1,8 +1,6 @@
 package com.pos.posproject.servlet.payment;
 
-import com.pos.posproject.common.PaymentDetails;
 import com.pos.posproject.ejb.PayByCardBean;
-import com.pos.posproject.ejb.PayByCashBean;
 import com.pos.posproject.ejb.PaymentBean;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.enums.PaymentMethods;
