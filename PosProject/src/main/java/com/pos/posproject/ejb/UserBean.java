@@ -52,6 +52,26 @@ public class UserBean {
                 user.getUsername(), user.getPosition(), user.getValidation());
     }
 
+    public UserDetails findUserByUsername(String username) {
+        LOG.info("findUserByUsername");
+        try {
+            TypedQuery query = em.createQuery(
+                    "SELECT u FROM User u where u.username = :username", User.class)
+                    .setParameter("username", username);
+            List<User> users = query.getResultList();
+            if (users.size() == 1) {
+                for (User user : users) {
+                    return new UserDetails(user.getId(), user.getFirstname(), user.getLastname(),
+                            user.getUsername(), user.getPosition(), user.getValidation());
+                }
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+
+        }
+        return null;
+    }
+
     public List<UserDetails> getAllUsers() {
         LOG.info("getAllUsers");
         try {
@@ -101,9 +121,8 @@ public class UserBean {
         user.setUsername(username);
         user.setPosition(position);
     }
-    
-    public void updateCashierStatus(Integer id, Boolean validation)
-    {
+
+    public void updateCashierStatus(Integer id, Boolean validation) {
         LOG.info("updateCashierStatus");
         User user = em.find(User.class, id);
         user.setValidation(validation);

@@ -34,10 +34,6 @@
                        href="${pageContext.request.contextPath}/Actions">Actions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/salePage.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/Sale">Sale</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>

@@ -28,7 +28,7 @@ public class LineItem implements Serializable {
     private Integer id;
     private int quantity;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_KEY")
     Product product;
 
