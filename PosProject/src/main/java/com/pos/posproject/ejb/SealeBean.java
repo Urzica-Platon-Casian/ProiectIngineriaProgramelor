@@ -26,19 +26,11 @@ public class SealeBean {
     @PersistenceContext
     private EntityManager em;
     
-//    public Integer createSale(int cashierID) {
-//        Sale sale = new Sale();
-//        sale.setDate(new Date());
-//        sale.setStatus(SaleStatus.PENDING);
-//        sale.setCashierId(cashierID);
-//        em.persist(sale);
-//        return sale.getId();
-//    }
-    
-    public Integer createSale() {
+    public Integer createSale(int cashierID) {
         Sale sale = new Sale();
         sale.setDate(new Date());
         sale.setStatus(SaleStatus.PENDING);
+        sale.setCashierId(cashierID);
         em.persist(sale);
         return sale.getId();
     }

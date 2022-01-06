@@ -6,10 +6,8 @@ package com.pos.posproject.ejb;
  */
 import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.entity.User;
-import com.pos.posproject.enums.UserRoles;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -128,24 +126,24 @@ public class UserBean {
         user.setValidation(validation);
     }
 
-    public User checkLogin(String username, String password) {
-        User currentUser = null;
-        try {
-            TypedQuery query = em.createQuery(
-                    "SELECT u FROM User u where u.username = :username and u.password = :password", User.class)
-                    .setParameter("username", username)
-                    .setParameter("password", password);
-            List<User> users = query.getResultList();
-            if (users.size() == 1) {
-                for (User user : users) {
-                    if (user.getValidation() == true) {
-                        return user;
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-        return currentUser;
-    }
+//    public User checkLogin(String username, String password) {
+//        User currentUser = null;
+//        try {
+//            TypedQuery query = em.createQuery(
+//                    "SELECT u FROM User u where u.username = :username and u.password = :password", User.class)
+//                    .setParameter("username", username)
+//                    .setParameter("password", password);
+//            List<User> users = query.getResultList();
+//            if (users.size() == 1) {
+//                for (User user : users) {
+//                    if (user.getValidation() == true) {
+//                        return user;
+//                    }
+//                }
+//            }
+//        } catch (Exception ex) {
+//            throw new EJBException(ex);
+//        }
+//        return currentUser;
+//    }
 }

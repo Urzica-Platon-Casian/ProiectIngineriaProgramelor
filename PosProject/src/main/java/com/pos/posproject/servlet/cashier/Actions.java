@@ -1,5 +1,6 @@
 package com.pos.posproject.servlet.cashier;
 
+import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.ejb.UserBean;
 import java.io.IOException;
@@ -50,10 +51,9 @@ public class Actions extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //String username = request.getUserPrincipal().getName();
-        //UserDetails user = userBean.findUserByUsername(username);
-        //Integer saleId = saleBean.createSale(user.getId());
-        Integer saleId = saleBean.createSale();
+        String username = request.getUserPrincipal().getName();
+        UserDetails user = userBean.findUserByUsername(username);
+        Integer saleId = saleBean.createSale(user.getId());
         response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);  
     }
 
