@@ -67,7 +67,7 @@ public class PayByCard extends HttpServlet {
 
         payByCardBean.createPayByCard(cardNumber, expiryDate, cvv, paymentId);
         saleBean.updateSaleStatus(saleId);
-        response.sendRedirect(request.getContextPath() + "/Sucessful?id=" + saleId);
+        response.sendRedirect(request.getContextPath() + "/Successful?id=" + saleId);
     }
 
     @Override

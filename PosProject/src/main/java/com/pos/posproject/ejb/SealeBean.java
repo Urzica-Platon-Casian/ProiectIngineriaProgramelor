@@ -59,12 +59,6 @@ public class SealeBean {
         return total;
     }
 
-    public void updateSaleStatus(Integer saleId) {
-        LOG.info("updateSaleStatus");
-        Sale sale = em.find(Sale.class, saleId);
-        sale.setStatus(SaleStatus.COMPLETED);
-    }
-
     public SaleDetails getSaleDetails(Integer saleId) {
         LOG.info("getAllProducts");
         try {

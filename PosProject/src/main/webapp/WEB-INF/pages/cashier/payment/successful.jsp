@@ -60,5 +60,13 @@
                 </b>
             </div>
         </div>
+        <div class="row" text-align: center">
+            <div class="col-md-2">
+                <b>
+                    Payed
+                    <c:out value="${paymentDetails.paymentType}"/>
+                </b>
+            </div>
+        </div>
     </form>
 </t:pageTemplate>

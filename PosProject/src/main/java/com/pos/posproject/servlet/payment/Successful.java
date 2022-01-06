@@ -6,14 +6,13 @@
 package com.pos.posproject.servlet.payment;
 
 import com.pos.posproject.common.LineItemDetails;
+import com.pos.posproject.common.PaymentDetails;
 import com.pos.posproject.common.SaleDetails;
-import com.pos.posproject.ejb.LineIteamBean;
-import com.pos.posproject.ejb.SaleLineItemBean;
+import com.pos.posproject.ejb.PaymentBean;
 import com.pos.posproject.ejb.SealeBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +29,9 @@ public class Successful extends HttpServlet {
 
     @Inject
     SealeBean saleBean;
+    
+    @Inject
+    PaymentBean paymentBean;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,9 +56,11 @@ public class Successful extends HttpServlet {
         request.setAttribute("saleId", saleId);
         SaleDetails saleDetails = saleBean.getSaleDetails(saleId);
         Double aaa = saleBean.getTotal(saleId);
+        PaymentDetails paymentDetails = paymentBean.findBySaleId(saleId);
         List<LineItemDetails> itemDetails = saleBean.getLineItem(saleId);
         request.setAttribute("saleDetails", saleDetails);
         request.setAttribute("itemDetails", itemDetails);
+        request.setAttribute("paymentDetails", paymentDetails);
         request.setAttribute("aaa", aaa);        
         request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/successful.jsp").forward(request, response);
     }
