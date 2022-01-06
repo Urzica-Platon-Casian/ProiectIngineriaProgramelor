@@ -104,7 +104,6 @@
                         <div class="col-md-3">
                             <input type="hidden" name="product_id" value="${product.id}"/>
                             <input type="hidden" name="saleId" value="${saleId}"/>
-                            <!--<a class="btn btn-primary" href="${pageContext.request.contextPath}/DeleteProdFromSale" role="button">Add</a>-->
                             <button class="btn btn-primary" type="submit">Add</button>
                         </div>                        
                     </div>

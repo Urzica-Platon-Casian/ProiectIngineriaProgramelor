@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pos.posproject.servlet.cashier;
 
-import com.pos.posproject.common.UserDetails;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.ejb.UserBean;
 import java.io.IOException;
