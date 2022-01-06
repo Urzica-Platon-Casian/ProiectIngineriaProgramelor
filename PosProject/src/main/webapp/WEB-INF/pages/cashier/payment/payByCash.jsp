@@ -13,7 +13,7 @@
         <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Pay by cash</h1>
         <div>
             <div class="row" style="padding-left: 500px;  padding-top: 10px">
-                <p><b>Total: </b>25 euro</p>
+                <p><b>Total: </b>${total}</p>
             </div> 
             <div class="row" style="padding-left: 500px;  padding-top: 10px">
                 <div class="col-md-3 mb-1">
@@ -23,9 +23,12 @@
                         Money is required.
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <a class="btn btn-primary " href="${pageContext.request.contextPath}/DelSmth" role="button">Delete Product</a>
+                </div>
             </div>
             <div class="row" style="padding-left: 500px; padding-top: 10px">
-                <p><b>Change: </b>25 euro</p>
+                <p><b>Change: </b>${change}</p>
             </div>
             <div class="row" style="padding-left: 500px; padding-top: 10px">
                 <div class="col-md-3">
