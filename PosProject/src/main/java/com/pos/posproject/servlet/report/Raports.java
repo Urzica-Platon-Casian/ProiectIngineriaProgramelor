@@ -1,11 +1,7 @@
 package com.pos.posproject.servlet.report;
 
-import com.pos.posproject.common.ProductDetails;
-import com.pos.posproject.ejb.ProductBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +12,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rori
  */
-@WebServlet(name = "ProductsStocksReport", urlPatterns = {"/ProductsStocksReport"})
-public class ProductsStocksReport extends HttpServlet {
+@WebServlet(name = "Raports", urlPatterns = {"/Raports"})
+public class Raports extends HttpServlet {
 
-    @Inject
-    private ProductBean productBean;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -30,10 +23,10 @@ public class ProductsStocksReport extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductsStocksReport</title>");            
+            out.println("<title>Servlet Report</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductsStocksReport at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Report at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -42,18 +35,13 @@ public class ProductsStocksReport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer stock = Integer.parseInt(request.getParameter("stock"));
-        List<ProductDetails> products = productBean.getAllProductsForStockReport(stock);
-        request.setAttribute("stockValue", stock);
-        request.setAttribute("products", products);
-        request.getRequestDispatcher("/WEB-INF/pages/raports/stocks.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/raports/raports.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String stock = request.getParameter("stock");
-        response.sendRedirect(request.getContextPath() + "/ProductsStocksReport?stock=" + stock);
+        processRequest(request, response);
     }
 
     @Override

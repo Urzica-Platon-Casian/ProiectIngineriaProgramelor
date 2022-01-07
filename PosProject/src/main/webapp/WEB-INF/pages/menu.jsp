@@ -42,8 +42,8 @@
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/stocks.jsp' ? 'active' : ''}" 
-                       href="${pageContext.request.contextPath}/ProductsStocksReport">Stock Report</a>
+                    <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/reports.jsp' ? 'active' : ''}" 
+                       href="${pageContext.request.contextPath}/Raports">Reports</a>
                 </li>
                 <c:if test="${pageContext.request.isUserInRole('DGRole')}">
                     <li class="nav-item">

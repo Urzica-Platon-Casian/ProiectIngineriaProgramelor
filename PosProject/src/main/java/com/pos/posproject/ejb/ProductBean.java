@@ -55,6 +55,18 @@ public class ProductBean {
             throw new EJBException(ex);
         }
     }
+    
+    public List<ProductDetails> getAllProductsForStockReport(Integer stock) {
+        LOG.info("getAllProductsForStockReport");
+        try {
+            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.quantity <= :stock", Product.class)
+                    .setParameter("stock", stock);
+            List<Product> products = typedQuery.getResultList();
+            return copyProductsToDetails(products);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
 
     private List<ProductDetails> copyProductsToDetails(List<Product> products) {
         List<ProductDetails> detailsList = new ArrayList<>();
