@@ -8,17 +8,19 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:pageTemplate pageTitle="Actions">
-    <form method="POST" action="${pageContext.request.contextPath}/Actions">
-        <h1 style="text-align: center">Initialize:</h1>
-        <div style="padding-left: 500px;">
-             <div class="row" style="padding: 20px; text-align: center;">
-            <div class="col-md-4">
-                <button class="btn btn-primary" type="submit">Sale</button>              
-            </div>  
-        </div>
+
+    <h1 style="text-align: center">Initialize:</h1>
+    <div style="padding-left: 500px;">
+        <form method="POST" action="${pageContext.request.contextPath}/Actions">
+            <div class="row" style="padding: 20px; text-align: center;">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="submit">Sale</button>              
+                </div>  
+            </div>
+        </form>
         <div class="row" style="padding: 20px; text-align: center;">
             <div class="col-md-4">
-                <button class="btn btn-primary" type="submit" formaction="#">Return</button>             
+                <button class="btn btn-primary" type="submit">Return</button>             
             </div>  
         </div>
     </div>

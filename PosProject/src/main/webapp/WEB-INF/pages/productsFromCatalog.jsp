@@ -13,9 +13,11 @@
     <form method="POST" action="${pageContext.request.contextPath}/ProductsFromCatalog">
         <input type="hidden" name="catalog_id" value="<c:out value="${param['id']}"/>" />           
         <div class="row" style="padding: 10px; text-align: center">
-            <div class="col-md-2">
-                <b>Select product</b>                    
-            </div>
+            <c:if test="${pageContext.request.isUserInRole('DGRole')}">
+                <div class="col-md-2">
+                    <b>Select product</b>                    
+                </div>
+            </c:if>
             <div class="col-md-1">
                 <b>Id</b>                   
             </div>
@@ -36,16 +38,20 @@
             </div>
             <div class="col-md-1">
                 <b>Quantity</b>               
-            </div>  
-            <div class="col-md-2">
-                <button class="btn btn-danger" type="submit">Delete Products</button>    
-            </div>  
+            </div>
+            <c:if test="${pageContext.request.isUserInRole('DGRole')}">
+                <div class="col-md-2">
+                    <button class="btn btn-danger" type="submit">Delete Products</button>    
+                </div> 
+            </c:if>
         </div>  
         <c:forEach var="product" items="${products}" varStatus="status">
             <div class="row" style="padding: 10px; text-align: center">
-                <div class="col-md-2">
-                    <input type="checkbox" name="product_ids" value="${product.id}" />
-                </div>
+                <c:if test="${pageContext.request.isUserInRole('DGRole')}">
+                    <div class="col-md-2">
+                        <input type="checkbox" name="product_ids" value="${product.id}" />
+                    </div>
+                </c:if>
                 <div class="col-md-1">
                     ${product.id}
                 </div>
