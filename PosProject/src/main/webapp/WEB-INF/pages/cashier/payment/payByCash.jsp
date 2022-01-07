@@ -40,7 +40,7 @@
             </div>
             <div class="row" style="padding-left: 500px; padding-top: 10px">
                 <div class="col-md-3">
-                    <a class="btn btn-danger " href="${pageContext.request.contextPath}/Sucessfull?id=${saleId}" role="button">Finish</a>
+                    <a class="btn btn-danger " href="${pageContext.request.contextPath}/Successful?id=${saleId}" role="button">Finish</a>
                 </div>
             </div>
         </div>

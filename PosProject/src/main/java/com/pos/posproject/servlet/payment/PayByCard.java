@@ -2,6 +2,7 @@ package com.pos.posproject.servlet.payment;
 
 import com.pos.posproject.ejb.PayByCardBean;
 import com.pos.posproject.ejb.PaymentBean;
+import com.pos.posproject.ejb.SaleLineItemBean;
 import com.pos.posproject.ejb.SealeBean;
 import com.pos.posproject.enums.PaymentMethods;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class PayByCard extends HttpServlet {
 
     @Inject
     private SealeBean saleBean;
+    
+    @Inject
+    private SaleLineItemBean saleLineItemBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -67,7 +71,9 @@ public class PayByCard extends HttpServlet {
 
         payByCardBean.createPayByCard(cardNumber, expiryDate, cvv, paymentId);
         saleBean.updateSaleStatus(saleId);
-        response.sendRedirect(request.getContextPath() + "/Sucessful?id=" + saleId);
+        saleBean.updateStockOfProducts(saleId);
+        saleLineItemBean.getSaleLineItems().clear();
+        response.sendRedirect(request.getContextPath() + "/Successful?id=" + saleId);
     }
 
     @Override

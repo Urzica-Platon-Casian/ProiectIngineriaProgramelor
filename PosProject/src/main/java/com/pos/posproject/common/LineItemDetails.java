@@ -12,7 +12,7 @@ public class LineItemDetails {
 
     public LineItemDetails(Integer id, int quantity, String productName, Double price) {
         this.id = id;
-        this.quantity = quantity;
+        this.quantity = quantity; 
         this.productName = productName;
         this.price = price;
     }
