@@ -10,20 +10,20 @@
 
 <t:pageTemplate pageTitle="StockReport">
     <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Stocks Report</h1>
-    <div style="padding-left: 300px">
+    <div style="padding-left: 350px">
         <form method="POST" action="${pageContext.request.contextPath}/ProductsStocksReport">
             <div class="row">
-                <div class="col-md-3">
-                    <b>Products with the stock under: </b>
+                <div class="col-md-4">
+                    <b>Products with the stock under:</b>
                 </div>
                 <div class="col-md-2">
-                    <input type="number" style="margin-bottom: 10px" class="form-control" id="stock" name="stock" placeholder="Stock number" value="">
+                    <input type="number" style="margin-bottom: 10px" class="form-control" id="stock" name="stock" placeholder="Stock number" value="${stockValue}">
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-primary" type="submit">Get Report</button>
                 </div>
             </div>
-            <div class="row" style="padding: 10px; text-align: center">
+            <div class="row" style="padding: 10px; margin-left: 70px; text-align: center">
                 <div class="col-md-1">
                     <b>Id</b>                   
                 </div>
@@ -41,7 +41,7 @@
                 </div>
             </div>  
             <c:forEach var="product" items="${products}" varStatus="status">
-                <div class="row" style="padding: 10px; text-align: center">
+                <div class="row" style="padding: 10px;  margin-left: 70px; text-align: center">
                     <div class="col-md-1">
                          ${product.id}
                     </div>
