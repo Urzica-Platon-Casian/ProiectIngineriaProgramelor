@@ -36,10 +36,12 @@
             </div>
             <div class="col-md-1">
                 <b>Edit</b>
-            </div>  
-            <div class="col-md-2">
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/Products/Create" role="button">Add Product</a>
-            </div>  
+            </div>
+            <c:if test="${pageContext.request.isUserInRole('DGRole')}">
+                <div class="col-md-2">
+                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/Products/Create" role="button">Add Product</a>
+                </div>  
+            </c:if>
         </div>  
         <c:forEach var="product" items="${products}" varStatus="status">
             <div class="row" style="padding: 10px; text-align: center">
@@ -64,9 +66,11 @@
                 <div class="col-md-1">
                     ${product.quantity}
                 </div> 
-                <div class="col-md-1">
-                    <a class="btn btn-primary " href="${pageContext.request.contextPath}/Products/Update?id=${product.id}" role="button"> Edit</a>
-                </div>
+                <c:if test="${pageContext.request.isUserInRole('DGRole')}">
+                    <div class="col-md-1">
+                        <a class="btn btn-primary " href="${pageContext.request.contextPath}/Products/Update?id=${product.id}" role="button"> Edit</a>
+                    </div>
+                </c:if>
             </div>
         </c:forEach>
     </t:pageTemplate>

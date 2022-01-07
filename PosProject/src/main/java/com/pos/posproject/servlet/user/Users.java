@@ -5,10 +5,7 @@ import com.pos.posproject.ejb.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.annotation.security.DeclareRoles;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
@@ -22,16 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stupa
  */
-@DeclareRoles({"AdminRole"})
-@ServletSecurity(
-        value = @HttpConstraint(
-                rolesAllowed = {"AdminRole"}
-        )
-//        ,
-//        httpMethodConstraints = {
-//            @HttpMethodConstraint(value = "POST", rolesAllowed = {"AdminRole"})
-//        }
-)
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole"}))
 @WebServlet(name = "Users", urlPatterns = {"/Users"})
 public class Users extends HttpServlet {
 
