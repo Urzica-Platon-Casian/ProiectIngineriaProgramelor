@@ -55,13 +55,13 @@ public class Successful extends HttpServlet {
         int saleId = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("saleId", saleId);
         SaleDetails saleDetails = saleBean.getSaleDetails(saleId);
-        Double aaa = saleBean.getTotal(saleId);
+        Double total = saleBean.getTotal(saleId);
         PaymentDetails paymentDetails = paymentBean.findBySaleId(saleId);
         List<LineItemDetails> itemDetails = saleBean.getLineItem(saleId);
         request.setAttribute("saleDetails", saleDetails);
         request.setAttribute("itemDetails", itemDetails);
         request.setAttribute("paymentDetails", paymentDetails);
-        request.setAttribute("aaa", aaa);        
+        request.setAttribute("total", total);        
         request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/successful.jsp").forward(request, response);
     }
 
