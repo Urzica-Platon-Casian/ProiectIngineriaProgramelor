@@ -41,10 +41,12 @@
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/about.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/about.jsp">About</a>
                 </li>
+                <c:if test="${pageContext.request.isUserInRole('DGRole')}">
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/reports.jsp' ? 'active' : ''}" 
                        href="${pageContext.request.contextPath}/Raports">Reports</a>
                 </li>
+                </c:if>
                 <c:if test="${pageContext.request.isUserInRole('DGRole')}">
                     <li class="nav-item">
                         <a class="nav-link ${pageContext.request.requestURI eq '/PosProject/cashiers.jsp' ? 'active' : ''}" 

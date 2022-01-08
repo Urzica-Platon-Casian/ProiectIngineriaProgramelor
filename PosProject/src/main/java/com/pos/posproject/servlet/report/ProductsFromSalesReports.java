@@ -1,10 +1,12 @@
 package com.pos.posproject.servlet.report;
 
+import com.pos.posproject.common.StatisticProductDetails;
+import com.pos.posproject.ejb.ProductBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rori
  */
-@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole", "DGRole"}))
-@WebServlet(name = "Raports", urlPatterns = {"/Raports"})
-public class Raports extends HttpServlet {
+@WebServlet(name = "ProductsFromSalesReports", urlPatterns = {"/ProductsFromSalesReports"})
+public class ProductsFromSalesReports extends HttpServlet {
 
+    @Inject
+    private ProductBean productBean;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -26,10 +30,10 @@ public class Raports extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Report</title>");
+            out.println("<title>Servlet ProductsFromSalesReports</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Report at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProductsFromSalesReports at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -38,13 +42,15 @@ public class Raports extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/raports/raports.jsp").forward(request, response);
+        List<StatisticProductDetails> products = productBean.getAllProductsForReport();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("/WEB-INF/pages/raports/productsFromSales.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //request.getRequestDispatcher("/WEB-INF/pages/raports/productsFromSales.jsp").forward(request, response);
     }
 
     @Override

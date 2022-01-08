@@ -1,8 +1,11 @@
 package com.pos.posproject.ejb;
 
 import com.pos.posproject.common.ProductDetails;
+import com.pos.posproject.common.StatisticProductDetails;
+import com.pos.posproject.entity.LineItem;
 import com.pos.posproject.entity.Product;
 import com.pos.posproject.entity.ProductCatalog;
+import com.pos.posproject.entity.Sale;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,6 +46,17 @@ public class ProductBean {
             throw new EJBException(ex);
         }
     }
+    
+     public List<StatisticProductDetails> getAllProductsForReport() {
+        LOG.info("getAllProductsForReport");
+        try {
+            Query query = em.createQuery("SELECT c FROM Product c");
+            List<Product> products = (List<Product>) query.getResultList();
+            return copyFromProductToReportProductDetails(products);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
 
     public List<ProductDetails> getAllProductsFromCatalog(Integer ProductCatalogId) {
         LOG.info("getAllProducts");
@@ -67,6 +81,41 @@ public class ProductBean {
             throw new EJBException(ex);
         }
     }
+    
+    public int getNumberOfSales(Integer productId){
+        LOG.info("getAllProductsForStockReport");
+        int ct = 0;
+        int ok =0;
+        try {
+            TypedQuery<Sale> typedQuery = em.createQuery("SELECT c FROM Sale c", Sale.class);
+            List<Sale> sales = typedQuery.getResultList();
+            for(Sale sale : sales)
+            {
+                ok = 0;
+                Collection<LineItem> lineItems = sale.getSaleProducts();
+                for(LineItem lineItem : lineItems)
+                {
+                    if(lineItem.getProduct().getId() == productId && ok == 0)
+                    {
+                        ct++;
+                        ok = 1;
+                    }
+                }
+            }
+            return ct;
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+    private List<StatisticProductDetails> copyFromProductToReportProductDetails(List<Product> products) {
+        List<StatisticProductDetails> detailsList = new ArrayList<>();
+        for (Product product : products) {
+            StatisticProductDetails statisticProductDetails = new StatisticProductDetails(product.getId(),
+                    product.getName(), getNumberOfSales(product.getId()));
+            detailsList.add(statisticProductDetails);
+        }
+        return detailsList;
+    }
 
     private List<ProductDetails> copyProductsToDetails(List<Product> products) {
         List<ProductDetails> detailsList = new ArrayList<>();
@@ -82,6 +131,8 @@ public class ProductBean {
             detailsList.add(productDetails);
         }
         return detailsList;
+        
+        
     }
 
     public void createProduct(String barcode, String name, String description, Double price, String category, int quantity, Integer productCatalogId) {
