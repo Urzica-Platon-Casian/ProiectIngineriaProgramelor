@@ -15,5 +15,10 @@
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/ProductsStocksReport?stock=0" role="button">Products Stocks</a>             
             </div>  
         </div>
+        <div class="row" style="padding: 20px; text-align: center;">
+            <div class="col-md-4">
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/ProductsFromSalesReports" role="button">Products From Sale</a>             
+            </div>  
+        </div>
     </div>
 </t:pageTemplate>
