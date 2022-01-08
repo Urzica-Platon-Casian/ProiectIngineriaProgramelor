@@ -3,6 +3,8 @@ package com.pos.posproject.servlet.report;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rori
  */
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole", "DGRole"}))
 @WebServlet(name = "Raports", urlPatterns = {"/Raports"})
 public class Raports extends HttpServlet {
 
