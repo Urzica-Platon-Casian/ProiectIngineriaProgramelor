@@ -42,14 +42,14 @@ public class ProductCatalogs extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String[] productCatalogIdsAsString = request.getParameterValues("productCatalog_ids");
-        if (productCatalogIdsAsString != null) {
-            List<Integer> productCatalogIds = new ArrayList<>();
-            for (String productCatalogIdAsString : productCatalogIdsAsString) {
-                productCatalogIds.add(Integer.parseInt(productCatalogIdAsString));// productCatalogIds.add(Integer.parseInt(productCatalogIdAsString));
-            }
-        }
-        response.sendRedirect(request.getContextPath() + "/ProductCatalogs");
+     //    String[] productCatalogIdsAsString = request.getParameterValues("productCatalog_ids");
+     //   if (productCatalogIdsAsString != null) {
+     //      List<Integer> productCatalogIds = new ArrayList<>();
+     //       for (String productCatalogIdAsString : productCatalogIdsAsString) {
+     //          productCatalogIds.add(Integer.parseInt(productCatalogIdAsString));
+     //      }
+     //  }
+     //  response.sendRedirect(request.getContextPath() + "/ProductCatalogs");
     }
     
     @Override
