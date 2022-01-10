@@ -3,6 +3,7 @@ package com.pos.posproject.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Product implements Serializable {
     private ProductCatalog productCatalog;
     
     @JsonbTransient
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<LineItem> lineItem;
 
     public ProductCatalog getProductCatalog() {
