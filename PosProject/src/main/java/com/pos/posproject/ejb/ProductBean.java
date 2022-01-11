@@ -39,7 +39,7 @@ public class ProductBean {
     public List<ProductDetails> getAllProducts() {
         LOG.info("getAllProducts");
         try {
-            Query query = em.createQuery("SELECT c FROM Product c");
+            Query query = em.createQuery("SELECT c FROM Product c WHERE c.isArchived = false");
             List<Product> products = (List<Product>) query.getResultList();
             return copyProductsToDetails(products);
         } catch (Exception ex) {
@@ -50,7 +50,7 @@ public class ProductBean {
      public List<StatisticProductDetails> getAllProductsForReport() {
         LOG.info("getAllProductsForReport");
         try {
-            Query query = em.createQuery("SELECT c FROM Product c");
+            Query query = em.createQuery("SELECT c FROM Product c WHERE c.isArchived = false");
             List<Product> products = (List<Product>) query.getResultList();
             return copyFromProductToReportProductDetails(products);
         } catch (Exception ex) {
@@ -61,7 +61,7 @@ public class ProductBean {
     public List<ProductDetails> getAllProductsFromCatalog(Integer ProductCatalogId) {
         LOG.info("getAllProducts");
         try {
-            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.productCatalog.id = :id", Product.class)
+            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.productCatalog.id = :id and c.isArchived = false", Product.class)
                     .setParameter("id", ProductCatalogId);
             List<Product> products = typedQuery.getResultList();
             return copyProductsToDetails(products);
@@ -73,7 +73,7 @@ public class ProductBean {
     public List<ProductDetails> getAllProductsForStockReport(Integer stock) {
         LOG.info("getAllProductsForStockReport");
         try {
-            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.quantity <= :stock", Product.class)
+            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.quantity <= :stock and c.isArchived = false", Product.class)
                     .setParameter("stock", stock);
             List<Product> products = typedQuery.getResultList();
             return copyProductsToDetails(products);
@@ -144,6 +144,7 @@ public class ProductBean {
         product.setPrice(price);
         product.setCategory(category);
         product.setQuantity(quantity);
+        product.setIsArchived(false);
 
         ProductCatalog productCatalog = em.find(ProductCatalog.class, productCatalogId);
         productCatalog.getProducts().add(product);
@@ -177,7 +178,8 @@ public class ProductBean {
             Product product = em.find(Product.class, id);
             ProductCatalog ProductCatalog = product.getProductCatalog();
             ProductCatalog.getProducts().remove(product);
-            em.remove(product);
+            product.setIsArchived(true);
+            //em.remove(product);
         }
     }
     
