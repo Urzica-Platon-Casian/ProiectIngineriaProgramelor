@@ -42,6 +42,16 @@ public class Product implements Serializable {
     @JsonbTransient
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<LineItem> lineItem;
+    
+    private Boolean isArchived;
+
+    public Boolean getIsArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(Boolean isArchived) {
+        this.isArchived = isArchived;
+    }
 
     public ProductCatalog getProductCatalog() {
         return productCatalog;
