@@ -29,6 +29,10 @@ public class LineItem implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SALE_KEY")
     private Sale sale;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="RETUR_KEY")
+    private Retur retur;
 
     public Sale getSale() {
         return sale;
@@ -37,6 +41,15 @@ public class LineItem implements Serializable {
     public void setSale(Sale sale) {
         this.sale = sale;
     }
+
+    public Retur getRetur() {
+        return retur;
+    }
+
+    public void setRetur(Retur retur) {
+        this.retur = retur;
+    }
+    
 
     public Integer getId() {
         return id;

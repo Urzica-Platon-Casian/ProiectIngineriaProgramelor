@@ -10,6 +10,7 @@
     <class>com.pos.posproject.entity.Product</class>
     <class>com.pos.posproject.entity.PayByCash</class>
     <class>com.pos.posproject.entity.PayByCard</class>
+    <class>com.pos.posproject.entity.Retur</class>
     <class>com.pos.posproject.entity.Cashier</class>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

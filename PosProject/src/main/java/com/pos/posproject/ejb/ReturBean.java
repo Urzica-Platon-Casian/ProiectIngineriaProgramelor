@@ -1,11 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.pos.posproject.ejb;
 
 import com.pos.posproject.common.LineItemDetails;
-import com.pos.posproject.common.SaleDetails;
+import com.pos.posproject.common.ReturDetails;
 import com.pos.posproject.entity.LineItem;
 import com.pos.posproject.entity.Product;
-import com.pos.posproject.entity.Sale;
-import com.pos.posproject.enums.SaleStatus;
+import com.pos.posproject.entity.Retur;
+import com.pos.posproject.enums.ReturStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -15,52 +20,42 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
  *
- * @author upcas
+ * @author Monica
  */
 @Stateless
-public class SealeBean {
+public class ReturBean {
 
     private static final Logger LOG = Logger.getLogger(SealeBean.class.getName());
     @PersistenceContext
     private EntityManager em;
 
-    public Integer createSale(int cashierID) {
-        Sale sale = new Sale();
-        sale.setDate(new Date());
-        sale.setStatus(SaleStatus.PENDING);
-        sale.setCashierId(cashierID);
-        em.persist(sale);
-        return sale.getId();
+    public Integer createRetur(int cashierID) {
+        Retur retur = new Retur();
+        retur.setDate(new Date());
+        retur.setStatus(ReturStatus.PENDING);
+        retur.setCashierId(cashierID);
+        em.persist(retur);
+        return retur.getId();
     }
 
-    public SaleDetails findById(Integer saleId) {
-        Sale sale = em.find(Sale.class, saleId);
-        Collection<LineItem> lineItems = sale.getSaleProducts();
+    public ReturDetails findById(Integer returId) {
+        Retur retur = em.find(Retur.class, returId);
+        Collection<LineItem> lineItems = retur.getReturProducts();
         List<LineItemDetails> lineItemsDetails = new ArrayList<LineItemDetails>();
         for (LineItem lineItem : lineItems) {
             lineItemsDetails.add(new LineItemDetails(lineItem.getId(), lineItem.getQuantity(), lineItem.getProduct().getName(), lineItem.getProduct().getPrice()));
         }
-        return new SaleDetails(sale.getId(), lineItemsDetails, sale.getCashierId(), sale.getDate());
+        return new ReturDetails(retur.getId(), lineItemsDetails, retur.getCashierId(), retur.getDate());
     }
-      
-    
-    
-     public SaleDetails findFinishedSaleById(Integer saleId) {
-     return null;
-     // sa returneze id-ul sale-ului mai departe
-     }
-    
-     
-     
-    public Double getTotal(Integer saleId) {
+
+    public Double getTotal(Integer returId) {
         Double total = 0.0;
-        Sale sale = em.find(Sale.class, saleId);
-        Collection<LineItem> lineItems = sale.getSaleProducts();
+        Retur retur = em.find(Retur.class, returId);
+        Collection<LineItem> lineItems = retur.getReturProducts();
         for (LineItem lineItem : lineItems) {
             Product product = lineItem.getProduct();
             total = total + product.getPrice() * lineItem.getQuantity();
@@ -68,32 +63,32 @@ public class SealeBean {
         return total;
     }
 
-    public SaleDetails getSaleDetails(Integer saleId) {
+    public ReturDetails getReturDetails(Integer returId) {
         LOG.info("getAllProducts");
         try {
             List<LineItemDetails> lineItemsDetails = new ArrayList<>();
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.sale.id = :id", LineItem.class)
-                    .setParameter("id", saleId);
-            Sale sale = em.find(Sale.class, saleId);
-            Integer cashierId = sale.getCashierId();
+            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
+                    .setParameter("id", returId);
+            Retur retur = em.find(Retur.class, returId);
+            Integer cashierId = retur.getCashierId();
             List<LineItem> lineItems = typedQuery.getResultList();
             for (LineItem lineItem : lineItems) {
                 LineItemDetails lineitemDetails = new LineItemDetails(lineItem.getId(), lineItem.getQuantity(),
                         lineItem.getProduct().getName(), lineItem.getProduct().getPrice());
                 lineItemsDetails.add(lineitemDetails);
             }
-            return new SaleDetails(saleId, lineItemsDetails, cashierId, sale.getDate());
+            return new ReturDetails(returId, lineItemsDetails, cashierId, retur.getDate());
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
     }
 
-    public List<LineItemDetails> getLineItem(Integer saleId) {
+    public List<LineItemDetails> getLineItem(Integer returId) {
         LOG.info("getAllProducts");
         try {
             List<LineItemDetails> lineItemsDetails = new ArrayList<>();
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.sale.id = :id", LineItem.class)
-                    .setParameter("id", saleId);
+            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
+                    .setParameter("id", returId);
             List<LineItem> lineItems = typedQuery.getResultList();
             for (LineItem lineItem : lineItems) {
                 LineItemDetails lineitemDetails = new LineItemDetails(lineItem.getId(), lineItem.getQuantity(),
@@ -106,11 +101,11 @@ public class SealeBean {
         }
     }
     
-    public void updateStockOfProducts(Integer saleId) {
+    public void updateStockOfProducts(Integer returId) {
         LOG.info("updateStockOfProducts");
          try {
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.sale.id = :id", LineItem.class)
-                    .setParameter("id", saleId);
+            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
+                    .setParameter("id", returId);
             TypedQuery<Product> productsQuery = em.createQuery("SELECT e FROM Product e", Product.class);
             List<LineItem> lineItems = typedQuery.getResultList();
             List<Product> products = productsQuery.getResultList();
@@ -119,7 +114,7 @@ public class SealeBean {
                 {
                     if(lineItem.getProduct().getId() == product.getId()) {
                         Integer quantity = product.getQuantity();
-                        product.setQuantity(quantity-lineItem.getQuantity());
+                        product.setQuantity(quantity+lineItem.getQuantity());
                     }
                 }
             }
@@ -128,16 +123,16 @@ public class SealeBean {
         }
     }
     
-    public void updateSaleStatus(Integer saleId) {
+    public void updateSaleStatus(Integer returId) {
         LOG.info("updateSaleStatus");
-        Sale sale = em.find(Sale.class, saleId);
-        sale.setStatus(SaleStatus.COMPLETED);
+        Retur retur = em.find(Retur.class, returId);
+        retur.setStatus(ReturStatus.COMPLETED);
     }
     
-    public Boolean getStatus(Integer saleId){
+    public Boolean getStatus(Integer returId){
         LOG.info("getSaleStatus");
-        Sale sale = em.find(Sale.class, saleId);
-        if(sale.getStatus() == SaleStatus.COMPLETED)
+        Retur retur = em.find(Retur.class, returId);
+        if(retur.getStatus() == ReturStatus.COMPLETED)
             return true;
         else
             return false;
