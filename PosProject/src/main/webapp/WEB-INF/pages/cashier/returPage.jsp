@@ -13,7 +13,7 @@
             ${message}
         </div>
     </c:if>
-  <form class="needs-validation" nonvalidate method="POST" action="${pageContext.request.contextPath}/Retur">
+  <form class="needs-validation" nonvalidate method="POST" action="${pageContext.request.contextPath}/ReturAction">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="saleId">Sale Id</label>
@@ -23,5 +23,6 @@
                 </div>
             </div>
         </div>
+         <button class="btn  btn-lg btn-primary btn-block" type="submit"> Verify </button>
     </form>
 </t:pageTemplate>

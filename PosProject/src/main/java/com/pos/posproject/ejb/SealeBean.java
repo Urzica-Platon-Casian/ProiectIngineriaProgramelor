@@ -50,8 +50,12 @@ public class SealeBean {
       
     
     
-     public SaleDetails findFinishedSaleById(Integer saleId) {
-     return null;
+    public Integer findFinishedSaleById(Integer saleId) { // verifySaleById
+        Sale sale = em.find(Sale.class, saleId);
+        if(sale != null)
+            return saleId;
+        else 
+            return 0;
      // sa returneze id-ul sale-ului mai departe
      }
     
