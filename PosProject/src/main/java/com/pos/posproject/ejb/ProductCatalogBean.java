@@ -59,6 +59,7 @@ public class ProductCatalogBean {
         return new ProductCatalogDetails(productCatalog.getId(), productCatalog.getProductCatalogName());
     }
 
+    
     public Collection<String> findProductCatalogNames(Collection<Integer> productCatalogIds) {
         LOG.info("findProductCatalogNames");
         List<String> productCatalogNames = (List<String>) em.createQuery("SELECT u.productCatalogName FROM ProductCatalog u WHERE u.id IN ?1")

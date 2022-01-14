@@ -73,7 +73,8 @@ public class ReturAction extends HttpServlet {
             UserDetails user = userBean.findUserByUsername(username);
             Integer returId = returBean.createRetur(user.getId());
             response.sendRedirect(request.getContextPath() + "/ReturAction?id=" + returId); 
-           
+            response.sendRedirect(request.getContextPath() + "/ReturAction?idSale=" + saleId); 
+        
         }
         else{
         request.setAttribute("message", "Sale Id does not exist");

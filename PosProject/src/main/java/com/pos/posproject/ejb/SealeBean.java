@@ -55,7 +55,7 @@ public class SealeBean {
         if(sale != null)
             return saleId;
         else 
-            return 0;
+            return null;
      // sa returneze id-ul sale-ului mai departe
      }
     
