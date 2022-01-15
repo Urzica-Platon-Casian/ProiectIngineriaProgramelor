@@ -51,9 +51,10 @@ public class ReturBean {
         lineItemRetur.setProduct(lineItem.getProduct());
         lineItemRetur.setQuantity(quantity);
         lineItemRetur.setRetur(retur);
-//        Collection<LineItemRetur> items = retur.getReturProducts();
-//        items.add(lineItemRetur);
-//        retur.setReturProducts(items);
+        em.persist(lineItemRetur);
+        Collection<LineItemRetur> items = retur.getReturProducts();
+        items.add(lineItemRetur);
+        retur.setReturProducts(items);
     }
 
     public void updateReturStatus(Integer returId) {

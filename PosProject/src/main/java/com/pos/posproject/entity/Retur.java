@@ -16,10 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -91,8 +88,6 @@ public class Retur implements Serializable {
     public void setStatus(ReturStatus status) {
         this.status = status;
     }
-
-
 
     @Override
     public int hashCode() {
