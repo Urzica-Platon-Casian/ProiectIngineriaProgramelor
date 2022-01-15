@@ -15,7 +15,6 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -47,8 +46,6 @@ public class SealeBean {
         }
         return new SaleDetails(sale.getId(), lineItemsDetails, sale.getCashierId(), sale.getDate());
     }
-      
-    
     
     public Integer findFinishedSaleById(Integer saleId) { // verifySaleById
         Sale sale = em.find(Sale.class, saleId);
@@ -58,9 +55,7 @@ public class SealeBean {
             return null;
      // sa returneze id-ul sale-ului mai departe
      }
-    
-     
-     
+
     public Double getTotal(Integer saleId) {
         Double total = 0.0;
         Sale sale = em.find(Sale.class, saleId);
@@ -147,4 +142,12 @@ public class SealeBean {
             return false;
     }
     
+    public void setNewQuantity(int itemId, int quantity){
+        LineItem lineItem = em.find(LineItem.class, itemId);
+        int oldQuantity = lineItem.getQuantity();
+        lineItem.setQuantity(oldQuantity - quantity);
+        Product product = lineItem.getProduct();
+        int oldStockQuantity = product.getQuantity();
+        product.setQuantity(oldStockQuantity + quantity);
+    }
 }

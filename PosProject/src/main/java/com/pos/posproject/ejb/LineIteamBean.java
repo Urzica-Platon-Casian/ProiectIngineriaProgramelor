@@ -55,34 +55,7 @@ public class LineIteamBean {
         }
         return lineItemsDetails;
     }
-
-    public void deleteLineItemById(Integer lineItemId) {
-        LineItem lineItem = em.find(LineItem.class, lineItemId);
-        Sale sale = lineItem.getSale();
-        sale.getSaleProducts().remove(lineItem);
-        em.remove(lineItem);
-    }
-    
-     public Integer findFinishedSaleById(Integer saleId) { // verifySaleById
-        Sale sale = em.find(Sale.class, saleId);
-        if(sale != null)
-            return saleId;
-        else 
-            return null;
-     // sa returneze id-ul sale-ului mai departe
-     }
-    
-    public Integer getLineItemId(Integer saleId) {
-        
-        // LineItem lineItem = (LineItem) em.createQuery("SELECT id FROM LineItem  WHERE sale_id='" +saleId+"'");
-          LineItem lineItem = (LineItem) em.createQuery("SELECT l FROM LineItem l WHERE l.sale = :sId") .setParameter("sId", saleId).getResultList();
-    //   LineItem lineItem = em.find(LineItem.class, saleId);
-        if(lineItem != null)
-            return lineItem.getId();
-        else 
-            return null;
-    }
-    
+     
     public LineItemDetails findById(Integer lineItemId)
     {
         LineItem lineItem = em.find(LineItem.class, lineItemId);

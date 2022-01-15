@@ -5,22 +5,18 @@
  */
 package com.pos.posproject.ejb;
 
-import com.pos.posproject.common.LineItemDetails;
-import com.pos.posproject.common.ReturDetails;
 import com.pos.posproject.entity.LineItem;
+import com.pos.posproject.entity.LineItemRetur;
 import com.pos.posproject.entity.Product;
 import com.pos.posproject.entity.Retur;
+import com.pos.posproject.entity.Sale;
 import com.pos.posproject.enums.ReturStatus;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,109 +29,47 @@ public class ReturBean {
     @PersistenceContext
     private EntityManager em;
 
-    public Integer createRetur(int cashierID) {
+    public Integer createRetur(int cashierID, int saleId) {
         Retur retur = new Retur();
         retur.setDate(new Date());
         retur.setStatus(ReturStatus.PENDING);
         retur.setCashierId(cashierID);
+        retur.setSaleId(saleId);
         em.persist(retur);
         return retur.getId();
     }
-
-    public ReturDetails findById(Integer returId) {
+    
+    public Integer getSaleId(int returId){
         Retur retur = em.find(Retur.class, returId);
-        Collection<LineItem> lineItems = retur.getReturProducts();
-        List<LineItemDetails> lineItemsDetails = new ArrayList<LineItemDetails>();
-        for (LineItem lineItem : lineItems) {
-            lineItemsDetails.add(new LineItemDetails(lineItem.getId(), lineItem.getQuantity(), lineItem.getProduct().getName(), lineItem.getProduct().getPrice()));
-        }
-        return new ReturDetails(retur.getId(), lineItemsDetails, retur.getCashierId(), retur.getDate());
-    }
-
-    public Double getTotal(Integer returId) {
-        Double total = 0.0;
-        Retur retur = em.find(Retur.class, returId);
-        Collection<LineItem> lineItems = retur.getReturProducts();
-        for (LineItem lineItem : lineItems) {
-            Product product = lineItem.getProduct();
-            total = total + product.getPrice() * lineItem.getQuantity();
-        }
-        return total;
-    }
-
-    public ReturDetails getReturDetails(Integer returId) {
-        LOG.info("getAllProducts");
-        try {
-            List<LineItemDetails> lineItemsDetails = new ArrayList<>();
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
-                    .setParameter("id", returId);
-            Retur retur = em.find(Retur.class, returId);
-            Integer cashierId = retur.getCashierId();
-            List<LineItem> lineItems = typedQuery.getResultList();
-            for (LineItem lineItem : lineItems) {
-                LineItemDetails lineitemDetails = new LineItemDetails(lineItem.getId(), lineItem.getQuantity(),
-                        lineItem.getProduct().getName(), lineItem.getProduct().getPrice());
-                lineItemsDetails.add(lineitemDetails);
-            }
-            return new ReturDetails(returId, lineItemsDetails, cashierId, retur.getDate());
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-    }
-
-    public List<LineItemDetails> getLineItem(Integer returId) {
-        LOG.info("getAllProducts");
-        try {
-            List<LineItemDetails> lineItemsDetails = new ArrayList<>();
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
-                    .setParameter("id", returId);
-            List<LineItem> lineItems = typedQuery.getResultList();
-            for (LineItem lineItem : lineItems) {
-                LineItemDetails lineitemDetails = new LineItemDetails(lineItem.getId(), lineItem.getQuantity(),
-                        lineItem.getProduct().getName(), lineItem.getProduct().getPrice());
-                lineItemsDetails.add(lineitemDetails);
-            }
-            return lineItemsDetails;
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
+        return retur.getSaleId();
     }
     
-    public void updateStockOfProducts(Integer returId) {
-        LOG.info("updateStockOfProducts");
-         try {
-            TypedQuery<LineItem> typedQuery = em.createQuery("SELECT c FROM LineItem c where c.retur.id = :id", LineItem.class)
-                    .setParameter("id", returId);
-            TypedQuery<Product> productsQuery = em.createQuery("SELECT e FROM Product e", Product.class);
-            List<LineItem> lineItems = typedQuery.getResultList();
-            List<Product> products = productsQuery.getResultList();
-            for (LineItem lineItem : lineItems) {
-                for(Product product : products)
-                {
-                    if(lineItem.getProduct().getId() == product.getId()) {
-                        Integer quantity = product.getQuantity();
-                        product.setQuantity(quantity+lineItem.getQuantity());
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
+    public void addReturItem(int itemId, int quantity, int returId){
+        LineItem lineItem = em.find(LineItem.class, itemId);
+        Retur retur = em.find(Retur.class, returId);
+        LineItemRetur lineItemRetur = new LineItemRetur();
+        lineItemRetur.setProduct(lineItem.getProduct());
+        lineItemRetur.setQuantity(quantity);
+        lineItemRetur.setRetur(retur);
+//        Collection<LineItemRetur> items = retur.getReturProducts();
+//        items.add(lineItemRetur);
+//        retur.setReturProducts(items);
     }
-    
-    public void updateSaleStatus(Integer returId) {
+
+    public void updateReturStatus(Integer returId) {
         LOG.info("updateSaleStatus");
         Retur retur = em.find(Retur.class, returId);
         retur.setStatus(ReturStatus.COMPLETED);
     }
     
-    public Boolean getStatus(Integer returId){
-        LOG.info("getSaleStatus");
+    public Double getTotal(Integer returId) {
+        Double total = 0.0;
         Retur retur = em.find(Retur.class, returId);
-        if(retur.getStatus() == ReturStatus.COMPLETED)
-            return true;
-        else
-            return false;
+        Collection<LineItemRetur> lineItems = retur.getReturProducts();
+        for (LineItemRetur lineItem : lineItems) {
+            Product product = lineItem.getProduct();
+            total = total + product.getPrice() * lineItem.getQuantity();
+        }
+        return total;
     }
-    
 }

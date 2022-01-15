@@ -40,13 +40,9 @@ public class Retur implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private ReturStatus status;
 
-   // @OneToOne
-  //  @JoinColumn(name = "MONEYBACK_KEY")
-   // Moneyback moneyback;
-
     @JsonbTransient
     @OneToMany(mappedBy = "retur")
-    private Collection<LineItem> returProducts;
+    private Collection<LineItemRetur> returProducts;
 
     public Integer getId() {
         return id;
@@ -71,23 +67,11 @@ public class Retur implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
-   // public Moneyback getMoneyback() {
-   //     return moneyback;
-   //}
-
-   // public void setMoneyback(Moneyback moneyback) {
-   //    this.moneyback = moneyback;
-    //}
     
     public ReturStatus getStatus() {
         return status;
     }
-
-    public Collection<LineItem> getReturProducts() {
-        return returProducts;
-    }
-
+    
     public int getSaleId() {
         return saleId;
     }
@@ -95,13 +79,15 @@ public class Retur implements Serializable {
     public void setSaleId(int saleId) {
         this.saleId = saleId;
     }
-    
-    
- @XmlTransient
-    public void setReturProducts(Collection<LineItem> returProducts) {
-        this.returProducts = returProducts;
+
+    public Collection<LineItemRetur> getReturProducts() {
+        return returProducts;
     }
 
+    public void setReturProducts(Collection<LineItemRetur> returProducts) {
+        this.returProducts = returProducts;
+    }
+    
     public void setStatus(ReturStatus status) {
         this.status = status;
     }

@@ -17,29 +17,22 @@ public class ReturDetails {
      private List<LineItemDetails> lineItems;
      private Integer cashierId;
      private Date date;
+     private Integer saleId;
+
+    public Integer getSaleId() {
+        return saleId;
+    }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public List<LineItemDetails> getLineItems() {
         return lineItems;
     }
 
-    public void setLineItems(List<LineItemDetails> lineItems) {
-        this.lineItems = lineItems;
-    }
-
     public Integer getCashierId() {
         return cashierId;
-    }
-
-    public void setCashierId(Integer cashierId) {
-        this.cashierId = cashierId;
     }
 
     public Date getDate() {
@@ -50,13 +43,13 @@ public class ReturDetails {
         this.date = date;
     }
 
-
-    public ReturDetails(Integer id, List<LineItemDetails> lineItems, Integer cashierId, Date date) {
+    public ReturDetails(Integer id, List<LineItemDetails> lineItems, Integer cashierId, Date date, Integer saleId) {
         this.id = id;
         this.lineItems = lineItems;
         this.cashierId = cashierId;
         this.date = date;
+        this.saleId = saleId;
     }
-     
+
      
 }
