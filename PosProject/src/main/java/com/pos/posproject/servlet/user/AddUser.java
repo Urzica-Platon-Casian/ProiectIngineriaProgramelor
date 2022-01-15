@@ -1,5 +1,6 @@
 package com.pos.posproject.servlet.user;
 
+import com.pos.posproject.ejb.CashierBean;
 import com.pos.posproject.ejb.UserBean;
 import com.pos.posproject.enums.UserRoles;
 import com.pos.posproject.util.PasswordUtil;
@@ -20,44 +21,46 @@ import javax.servlet.http.HttpServletResponse;
 //@ServletSecurity(value=@HttpConstraint(rolesAllowed={"AdminRole"}))
 @WebServlet(name = "AddUser", urlPatterns = {"/Users/Create"})
 public class AddUser extends HttpServlet {
-      @Inject
+
+    @Inject
+    CashierBean cashierBean;
+    @Inject
     UserBean userBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {    
+            throws ServletException, IOException {
         List<String> roles = new ArrayList<>();
-        for (UserRoles user : UserRoles.values())
-        {
+        for (UserRoles user : UserRoles.values()) {
             roles.add(user.name());
         }
+        
         request.setAttribute("roles", roles);
-        request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String first_name=request.getParameter("first_name");
-        String last_name=request.getParameter("last_name");
+        String username = request.getParameter("username");
+        String first_name = request.getParameter("first_name");
+        String last_name = request.getParameter("last_name");
         String password = request.getParameter("password");
         String position = request.getParameter("position");
-        String passwordSha256=PasswordUtil.convertToSha256(password);
-        if("ADMIN".equals(position) || "DG".equals(position))
-        {
-            userBean.createUser(username, first_name,last_name, passwordSha256, position , true);
+        String passwordSha256 = PasswordUtil.convertToSha256(password);
+        
+        if ("ADMIN".equals(position) || "DG".equals(position)) {
+            userBean.createUser(username, first_name, last_name, passwordSha256, position, true);
+        } 
+        else if ("CASHIER".equals(position)) {
+            cashierBean.createCashier(username, first_name, last_name, passwordSha256, position, false);
         }
-        else if("CASHIER".equals(position))
-        {
-            userBean.createUser(username, first_name,last_name, passwordSha256, position, false);
-        }
-        response.sendRedirect(request.getContextPath()+"/Users");
+        response.sendRedirect(request.getContextPath() + "/Users");
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
