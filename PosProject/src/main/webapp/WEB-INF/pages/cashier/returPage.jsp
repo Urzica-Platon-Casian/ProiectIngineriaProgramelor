@@ -22,6 +22,8 @@
                     Sale Id is required.
                 </div>
             </div>
+            <input type="hidden" name="saleId" value="${saleId}"/>
+            <input type="hidden" name="returId" value="${returId}"/>
         </div>
          <button class="btn  btn-lg btn-primary btn-block" type="submit"> Verify </button>
     </form>

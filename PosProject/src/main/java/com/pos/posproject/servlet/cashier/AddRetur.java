@@ -12,6 +12,7 @@ import com.pos.posproject.ejb.ProductBean;
 import com.pos.posproject.ejb.SealeBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -73,15 +74,17 @@ public class AddRetur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer returId=Integer.parseInt(request.getParameter("id"));
-        Integer saleId=Integer.parseInt(request.getParameter("idSale"));
+        Integer saleId=Integer.parseInt(request.getParameter("saleId"));
+       // Integer returId=Integer.parseInt(request.getParameter("returId"));
         Integer lineItemId = lineItemBean.getLineItemId(saleId);
-
+        LineItemDetails lineItem= lineItemBean.findById(lineItemId);
+        List<ProductDetails> lineItemProducts = productBean.getAllProductsFromLineItem(lineItem.getId());
+        request.setAttribute("activePage", "Products");
+        request.setAttribute("products", lineItemProducts);
+        request.getRequestDispatcher("/WEB-INF/pages/cashier/addRetur.jsp").forward(request, response);
       //  List<ProductDetails> returProducts= productBean.getAllProducts();
       //  Double total = saleBean.getTotal(saleId);
-       // LineItemDetails returProduct=lineItemBean.findById(returProductId);
-        
-        
+       // LineItemDetails returProduct=lineItemBean.findById(returProductId);    
     }
 
     /**
@@ -95,6 +98,16 @@ public class AddRetur extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String[] productIdsAsString = request.getParameterValues("product_ids");
+        String lineItemId = request.getParameter("lineItem_id");
+        if (productIdsAsString != null) {
+            List<Integer> productIds = new ArrayList<>();
+            for (String productIdAsString : productIdsAsString) {
+                productIds.add(Integer.parseInt(productIdAsString));
+            }
+            productBean.deleteProductsByIds(productIds);
+        }
+        response.sendRedirect(request.getContextPath() + "/AddRetur?id=" + lineItemId);
         processRequest(request, response);
     }
 

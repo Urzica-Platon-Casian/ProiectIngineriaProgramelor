@@ -72,8 +72,8 @@ public class ReturAction extends HttpServlet {
             String username = request.getUserPrincipal().getName();
             UserDetails user = userBean.findUserByUsername(username);
             Integer returId = returBean.createRetur(user.getId());
-            response.sendRedirect(request.getContextPath() + "/ReturAction?id=" + returId); 
-            response.sendRedirect(request.getContextPath() + "/ReturAction?idSale=" + saleId); 
+         //   response.sendRedirect(request.getContextPath() + "/AddRetur?id=" + returId); 
+            response.sendRedirect(request.getContextPath() + "/AddRetur?saleId=" + saleId); 
         
         }
         else{
