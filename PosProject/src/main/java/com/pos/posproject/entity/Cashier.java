@@ -5,35 +5,28 @@
  */
 package com.pos.posproject.entity;
 
-import com.pos.posproject.enums.UserRoles;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  *
- * @author Rori
+ * @author upcas
  */
 @Entity
-@Table(name = "USERS")
-public class User implements Serializable {
+public class Cashier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    private Boolean validation;
     private String firstname;
     private String lastname;
-    
+    private Boolean validation;
     private String position;
-    
     private String username;
     private String password;
 
@@ -103,10 +96,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Cashier)) {
             return false;
         }
-        User other = (User) object;
+        Cashier other = (Cashier) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -115,7 +108,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.posproject.entity.User[ id=" + id + " ]";
+        return "com.pos.posproject.entity.Cashier[ id=" + id + " ]";
     }
     
 }

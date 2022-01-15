@@ -81,17 +81,6 @@ public class UserBean {
         }
     }
 
-    public List<UserDetails> getAllCashiers() {
-        LOG.info("getAllCashiers");
-        try {
-            Query query = em.createQuery("SELECT u FROM User u where u.position = 'CASHIER'");
-            List<User> users = (List<User>) query.getResultList();
-            return copyUsersToDetails(users);
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-    }
-
     private List<UserDetails> copyUsersToDetails(List<User> users) {
         List<UserDetails> detailsList = new ArrayList<>();
         for (User user : users) {
@@ -109,6 +98,24 @@ public class UserBean {
             em.remove(user);
         }
     }
+    
+    public void deleteByUsername(String username) {
+        LOG.info("deleteByUsername");
+        try {
+            TypedQuery query = em.createQuery(
+                    "SELECT u FROM User u where u.username = :username", User.class)
+                    .setParameter("username", username);
+            List<User> users = query.getResultList();
+            if (users.size() == 1) {
+                for (User user : users) {                
+                    em.remove(user);
+                }
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+
+        }
+    }
 
     public void updateUser(Integer id, String firstName, String lastName,
             String username, String position) {
@@ -119,31 +126,4 @@ public class UserBean {
         user.setUsername(username);
         user.setPosition(position);
     }
-
-    public void updateCashierStatus(Integer id, Boolean validation) {
-        LOG.info("updateCashierStatus");
-        User user = em.find(User.class, id);
-        user.setValidation(validation);
-    }
-
-//    public User checkLogin(String username, String password) {
-//        User currentUser = null;
-//        try {
-//            TypedQuery query = em.createQuery(
-//                    "SELECT u FROM User u where u.username = :username and u.password = :password", User.class)
-//                    .setParameter("username", username)
-//                    .setParameter("password", password);
-//            List<User> users = query.getResultList();
-//            if (users.size() == 1) {
-//                for (User user : users) {
-//                    if (user.getValidation() == true) {
-//                        return user;
-//                    }
-//                }
-//            }
-//        } catch (Exception ex) {
-//            throw new EJBException(ex);
-//        }
-//        return currentUser;
-//    }
 }
