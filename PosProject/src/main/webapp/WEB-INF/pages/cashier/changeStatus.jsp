@@ -16,11 +16,11 @@
                 <label for="validation">Validation</label>
                 <select class="custom-select d-block w-100" id="validation" name="validation" required>
                     <c:choose>
-                        <c:when test="${user.validation eq true}">
+                        <c:when test="${cashier.validation eq true}">
                             <option selected>VALID</option>
                             <option>INVALID</option>
                         </c:when>
-                        <c:when test="${user.validation eq false}">
+                        <c:when test="${cashier.validation eq false}">
                             <option>VALID</option>
                             <option selected>INVALID</option>
                         </c:when>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <hr class="my-4">
-        <input type="hidden" name="user_id" value="${user.id}" />
+        <input type="hidden" name="cashier_id" value="${cashier.id}" />
         <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
     </form>
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

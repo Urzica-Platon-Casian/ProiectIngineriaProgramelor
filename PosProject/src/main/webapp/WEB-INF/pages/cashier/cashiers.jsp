@@ -52,7 +52,7 @@
                         </c:when>
                     </c:choose>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="padding-bottom: 15px">
                     <a class="btn btn-primary" href="${pageContext.request.contextPath}/Cashier/Validate?id=${user.id}" role="button">Change Status</a>
                 </div>
             </div>
