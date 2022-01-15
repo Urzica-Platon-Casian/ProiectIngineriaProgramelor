@@ -93,13 +93,6 @@ public class User implements Serializable {
         this.password = password;
     }
     
-//    public Boolean validate(Boolean validation)
-//    {
-//        if(validation == true)
-//           return true;
-//        return false;
-//    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
