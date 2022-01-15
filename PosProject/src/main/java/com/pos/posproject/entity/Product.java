@@ -43,6 +43,10 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Collection<LineItem> lineItem;
     
+    @JsonbTransient
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Collection<LineItemRetur> lineItemRetur;
+    
     private Boolean isArchived;
 
     public Boolean getIsArchived() {
@@ -123,6 +127,14 @@ public class Product implements Serializable {
 
     public void setLineItem(Collection<LineItem> lineItem) {
         this.lineItem = lineItem;
+    }
+
+    public Collection<LineItemRetur> getLineItemRetur() {
+        return lineItemRetur;
+    }
+
+    public void setLineItemRetur(Collection<LineItemRetur> lineItemRetur) {
+        this.lineItemRetur = lineItemRetur;
     }
 
     @Override

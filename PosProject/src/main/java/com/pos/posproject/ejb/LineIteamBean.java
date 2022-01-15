@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -53,11 +55,11 @@ public class LineIteamBean {
         }
         return lineItemsDetails;
     }
-
-    public void deleteLineItemById(Integer lineItemId) {
+     
+    public LineItemDetails findById(Integer lineItemId)
+    {
         LineItem lineItem = em.find(LineItem.class, lineItemId);
-        Sale sale = lineItem.getSale();
-        sale.getSaleProducts().remove(lineItem);
-        em.remove(lineItem);
+       return new LineItemDetails(lineItem.getId(), lineItem.getQuantity(), lineItem.getProduct().getName(), lineItem.getProduct().getPrice());
+        
     }
 }

@@ -17,10 +17,10 @@
                     <button class="btn btn-primary" type="submit">Sale</button>              
                 </div>  
             </div>
-        </form>
+        </form>   
         <div class="row" style="padding: 20px; text-align: center;">
             <div class="col-md-4">
-                <button class="btn btn-primary" type="submit">Return</button>             
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/ReturAction" role="button">Retur</a>             
             </div>  
         </div>
     </div>

@@ -11,10 +11,10 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Rori
+ * @author stupa
  */
 @Entity
-public class LineItem implements Serializable {
+public class LineItemRetur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,24 +27,8 @@ public class LineItem implements Serializable {
     Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SALE_KEY")
-    private Sale sale;
-    
-    public Sale getSale() {
-        return sale;
-    }
-
-    public void setSale(Sale sale) {
-        this.sale = sale;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @JoinColumn(name = "RETUR_KEY")
+    private Retur retur;
 
     public int getQuantity() {
         return quantity;
@@ -62,6 +46,22 @@ public class LineItem implements Serializable {
         this.product = product;
     }
 
+    public Retur getRetur() {
+        return retur;
+    }
+
+    public void setRetur(Retur retur) {
+        this.retur = retur;
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -72,10 +72,10 @@ public class LineItem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LineItem)) {
+        if (!(object instanceof LineItemRetur)) {
             return false;
         }
-        LineItem other = (LineItem) object;
+        LineItemRetur other = (LineItemRetur) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -84,7 +84,7 @@ public class LineItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.pos.posproject.entity.LineItem[ id=" + id + " ]";
+        return "com.pos.posproject.entity.LineItemRetur[ id=" + id + " ]";
     }
-
+    
 }

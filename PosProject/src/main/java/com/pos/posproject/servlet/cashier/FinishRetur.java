@@ -1,9 +1,6 @@
 package com.pos.posproject.servlet.cashier;
 
-import com.pos.posproject.common.SaleDetails;
-import com.pos.posproject.ejb.LineIteamBean;
-import com.pos.posproject.ejb.SaleLineItemBean;
-import com.pos.posproject.ejb.SealeBean;
+import com.pos.posproject.ejb.ReturBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
@@ -15,20 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Rori
+ * @author stupa
  */
-@WebServlet(name = "DeleteProductFromSale", urlPatterns = {"/DeleteProductFromSale"})
-public class DeleteProductFromSale extends HttpServlet {
+@WebServlet(name = "FinishRetur", urlPatterns = {"/FinishRetur"})
+public class FinishRetur extends HttpServlet {
 
     @Inject
-    private SaleLineItemBean saleLineItemBean;
-    
-    @Inject
-    private LineIteamBean lineItemBean;
-    
-    @Inject
-    private SealeBean saleBean;
-    
+    private ReturBean returBean;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,10 +28,10 @@ public class DeleteProductFromSale extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteProductFromSale</title>");
+            out.println("<title>Servlet FinishRetur</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteProductFromSale at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FinishRetur at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -49,21 +40,17 @@ public class DeleteProductFromSale extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Integer returId = Integer.parseInt(request.getParameter("id"));
+        returBean.updateReturStatus(returId);
+        Double total = returBean.getTotal(returId);
+        request.setAttribute("total", total);
+        request.getRequestDispatcher("/WEB-INF/pages/cashier/finishRetur.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int saleItemId = Integer.parseInt(request.getParameter("saleItemId"));
-        int saleId = Integer.parseInt(request.getParameter("saleId"));
-        lineItemBean.deleteLineItemById(saleItemId);
-        SaleDetails sale = saleBean.findById(saleId);
-        saleLineItemBean.getSaleLineItems().clear();
-        saleLineItemBean.getSaleLineItems().addAll(sale.getLineItems());
-        
-        response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);
-        
+        processRequest(request, response);
     }
 
     @Override

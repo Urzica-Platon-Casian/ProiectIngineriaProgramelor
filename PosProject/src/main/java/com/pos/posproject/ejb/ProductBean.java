@@ -70,6 +70,19 @@ public class ProductBean {
         }
     }
     
+    
+    public List<ProductDetails> getAllProductsFromLineItem(Integer LineItemId) {
+        LOG.info("getAllProducts");
+        try {
+            TypedQuery<Product> typedQuery = em.createQuery("SELECT c FROM Product c where c.lineItem.id = :id and c.isArchived = false", Product.class)
+                    .setParameter("id", LineItemId);
+            List<Product> products = typedQuery.getResultList();
+            return copyProductsToDetails(products);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+    
     public List<ProductDetails> getAllProductsForStockReport(Integer stock) {
         LOG.info("getAllProductsForStockReport");
         try {
