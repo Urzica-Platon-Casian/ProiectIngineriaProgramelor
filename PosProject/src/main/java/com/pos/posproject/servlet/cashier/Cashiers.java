@@ -5,8 +5,8 @@
  */
 package com.pos.posproject.servlet.cashier;
 
-import com.pos.posproject.common.UserDetails;
-import com.pos.posproject.ejb.UserBean;
+import com.pos.posproject.common.CashierDetails;
+import com.pos.posproject.ejb.CashierBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -28,29 +28,13 @@ import javax.servlet.http.HttpServletResponse;
 public class Cashiers extends HttpServlet {
     
     @Inject
-    private UserBean userBean;
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Cashiers</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Cashiers at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private CashierBean cashierBean;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("activePage", "Cashiers");
-        List<UserDetails> cashiers = userBean.getAllCashiers();
+        List<CashierDetails> cashiers = cashierBean.getAllCashiers();
         request.setAttribute("cashiers", cashiers);
         request.getRequestDispatcher("/WEB-INF/pages/cashier/cashiers.jsp").forward(request, response);
     }
@@ -58,12 +42,11 @@ public class Cashiers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
