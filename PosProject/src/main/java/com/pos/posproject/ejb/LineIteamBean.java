@@ -62,4 +62,11 @@ public class LineIteamBean {
        return new LineItemDetails(lineItem.getId(), lineItem.getQuantity(), lineItem.getProduct().getName(), lineItem.getProduct().getPrice());
         
     }
+    
+     public void deleteLineItemById(Integer lineItemId) {
+        LineItem lineItem = em.find(LineItem.class, lineItemId);
+        Sale sale = lineItem.getSale();
+        sale.getSaleProducts().remove(lineItem);
+        em.remove(lineItem);
+    }
 }
