@@ -1,10 +1,9 @@
-package com.pos.posproject.servlet.payment;
+package com.pos.posproject.servlet.cashier;
 
-import com.pos.posproject.ejb.PayByCardBean;
-import com.pos.posproject.ejb.PaymentBean;
+import com.pos.posproject.common.SaleDetails;
+import com.pos.posproject.ejb.LineIteamBean;
 import com.pos.posproject.ejb.SaleLineItemBean;
 import com.pos.posproject.ejb.SealeBean;
-import com.pos.posproject.enums.PaymentMethods;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
@@ -18,20 +17,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rori
  */
-@WebServlet(name = "PayByCard", urlPatterns = {"/PayByCard"})
-public class PayByCard extends HttpServlet {
+@WebServlet(name = "DeleteProductFromSale", urlPatterns = {"/DeleteProductFromSale"})
+public class DeleteProductFromSale extends HttpServlet {
 
     @Inject
-    private PaymentBean paymentBean;
+    private SaleLineItemBean saleLineItemBean;
 
     @Inject
-    private PayByCardBean payByCardBean;
+    private LineIteamBean lineItemBean;
 
     @Inject
     private SealeBean saleBean;
-    
-    @Inject
-    private SaleLineItemBean saleLineItemBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,10 +37,10 @@ public class PayByCard extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PayByCard</title>");
+            out.println("<title>Servlet DeleteProductFromSale</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PayByCard at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteProductFromSale at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,29 +49,21 @@ public class PayByCard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer saleId = Integer.parseInt(request.getParameter("id"));
-        Double total = saleBean.getTotal(saleId);
-        request.setAttribute("saleId", saleId);
-        request.setAttribute("total", total);
-
-        request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/payByCard.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer saleId = Integer.parseInt(request.getParameter("saleId"));
-        Double total = saleBean.getTotal(saleId);
-        String cardNumber = request.getParameter("cardNumber");
-        String expiryDate = request.getParameter("expiryDate");
-        String cvv = request.getParameter("cvv");
-        Integer paymentId = paymentBean.createPayment(saleId, total, total, PaymentMethods.CARD);
-
-        payByCardBean.createPayByCard(cardNumber, expiryDate, cvv, paymentId);
-        saleBean.updateSaleStatus(saleId);
-        saleBean.updateStockOfProducts(saleId);
+        int saleItemId = Integer.parseInt(request.getParameter("saleItemId"));
+        int saleId = Integer.parseInt(request.getParameter("saleId"));
+        lineItemBean.deleteLineItemById(saleItemId);
+        SaleDetails sale = saleBean.findById(saleId);
         saleLineItemBean.getSaleLineItems().clear();
-        response.sendRedirect(request.getContextPath() + "/Successful?id=" + saleId);
+        saleLineItemBean.getSaleLineItems().addAll(sale.getLineItems());
+
+        response.sendRedirect(request.getContextPath() + "/Sale?id=" + saleId);
+
     }
 
     @Override
