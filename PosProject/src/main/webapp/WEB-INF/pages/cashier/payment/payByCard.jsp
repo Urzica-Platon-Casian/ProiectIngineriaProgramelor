@@ -14,7 +14,7 @@
         <h1 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Pay by card</h1>
         <div>
             <div class="row" style="padding-left: 500px;  padding-top: 10px">
-                <p><b>Total: </b>25 euro</p>
+                <p><b>Total: </b>${total} euro</p>
             </div> 
             <div class="row" style="padding-left: 500px;  padding-top: 10px">
                 <div class="col-md-3 mb-1">

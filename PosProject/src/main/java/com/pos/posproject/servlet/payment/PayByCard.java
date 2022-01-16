@@ -54,7 +54,9 @@ public class PayByCard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer saleId = Integer.parseInt(request.getParameter("id"));
+        Double total = saleBean.getTotal(saleId);
         request.setAttribute("saleId", saleId);
+        request.setAttribute("total", total);
 
         request.getRequestDispatcher("/WEB-INF/pages/cashier/payment/payByCard.jsp").forward(request, response);
     }
